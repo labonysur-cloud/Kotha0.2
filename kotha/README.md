@@ -6,6 +6,12 @@
 
 ---
 
+## 👥 Team
+
+- **Labony Sur** - [@labonysur-cloud](https://github.com/labonysur-cloud)
+- **Aupurba Sarker** - [@aupurbasarker-cloud](https://github.com/aupurbasarker-cloud)
+
+
 ## 📋 Table of Contents
 - [Features](#-features)
 - [Installation](#-installation)
@@ -18,6 +24,12 @@
 - [For CSE314 Course](#-for-cse314-course)
 
 ---
+
+## 👥 Team
+
+- **Labony Sur** - [@labonysur-cloud](https://github.com/labonysur-cloud)
+- **Aupurba Sarker** - [@aupurbasarker-cloud](https://github.com/aupurbasarker-cloud)
+
 
 ## ✨ Features
 
@@ -45,6 +57,12 @@
 
 ---
 
+## 👥 Team
+
+- **Labony Sur** - [@labonysur-cloud](https://github.com/labonysur-cloud)
+- **Aupurba Sarker** - [@aupurbasarker-cloud](https://github.com/aupurbasarker-cloud)
+
+
 ## 🚀 Installation
 
 ### Prerequisites
@@ -63,6 +81,12 @@ make
 This generates the `kotha` compiler binary.
 
 ---
+
+## 👥 Team
+
+- **Labony Sur** - [@labonysur-cloud](https://github.com/labonysur-cloud)
+- **Aupurba Sarker** - [@aupurbasarker-cloud](https://github.com/aupurbasarker-cloud)
+
 
 ## ⚡ Quick Start
 
@@ -87,6 +111,12 @@ main function {
 ```
 
 ---
+
+## 👥 Team
+
+- **Labony Sur** - [@labonysur-cloud](https://github.com/labonysur-cloud)
+- **Aupurba Sarker** - [@aupurbasarker-cloud](https://github.com/aupurbasarker-cloud)
+
 
 ## 📖 Language Syntax
 
@@ -177,6 +207,12 @@ matrix[0][0] = 1;
 
 ---
 
+## 👥 Team
+
+- **Labony Sur** - [@labonysur-cloud](https://github.com/labonysur-cloud)
+- **Aupurba Sarker** - [@aupurbasarker-cloud](https://github.com/aupurbasarker-cloud)
+
+
 ## 💻 CLI Usage
 
 ### Commands
@@ -211,6 +247,12 @@ kotha game guess
 
 ---
 
+## 👥 Team
+
+- **Labony Sur** - [@labonysur-cloud](https://github.com/labonysur-cloud)
+- **Aupurba Sarker** - [@aupurbasarker-cloud](https://github.com/aupurbasarker-cloud)
+
+
 ## 🎨 IDE Usage
 
 ### Launch the IDE
@@ -232,6 +274,12 @@ Then open: **http://localhost:8080**
 - **Console Output**: Green terminal-style output window
 
 ---
+
+## 👥 Team
+
+- **Labony Sur** - [@labonysur-cloud](https://github.com/labonysur-cloud)
+- **Aupurba Sarker** - [@aupurbasarker-cloud](https://github.com/aupurbasarker-cloud)
+
 
 ## 📚 Examples
 
@@ -280,6 +328,12 @@ main function {
 
 ---
 
+## 👥 Team
+
+- **Labony Sur** - [@labonysur-cloud](https://github.com/labonysur-cloud)
+- **Aupurba Sarker** - [@aupurbasarker-cloud](https://github.com/aupurbasarker-cloud)
+
+
 ## 📁 Project Structure
 
 ```
@@ -305,6 +359,12 @@ kotha/
 
 ---
 
+## 👥 Team
+
+- **Labony Sur** - [@labonysur-cloud](https://github.com/labonysur-cloud)
+- **Aupurba Sarker** - [@aupurbasarker-cloud](https://github.com/aupurbasarker-cloud)
+
+
 ## 🎓 For CSE314 Course
 
 This project demonstrates:
@@ -324,6 +384,12 @@ This project demonstrates:
 See `project_report.md` for detailed CO/PO mapping.
 
 ---
+
+## 👥 Team
+
+- **Labony Sur** - [@labonysur-cloud](https://github.com/labonysur-cloud)
+- **Aupurba Sarker** - [@aupurbasarker-cloud](https://github.com/aupurbasarker-cloud)
+
 
 ## 🛠️ Development
 
@@ -345,11 +411,23 @@ make
 
 ---
 
+## 👥 Team
+
+- **Labony Sur** - [@labonysur-cloud](https://github.com/labonysur-cloud)
+- **Aupurba Sarker** - [@aupurbasarker-cloud](https://github.com/aupurbasarker-cloud)
+
+
 ## 📝 License
 
 Educational use - Compiler Design Course (CSE314)
 
 ---
+
+## 👥 Team
+
+- **Labony Sur** - [@labonysur-cloud](https://github.com/labonysur-cloud)
+- **Aupurba Sarker** - [@aupurbasarker-cloud](https://github.com/aupurbasarker-cloud)
+
 
 ## 🐯 About
 
@@ -358,6 +436,12 @@ Educational use - Compiler Design Course (CSE314)
 **The Royal Bengal Tiger** is the national animal of Bangladesh, symbolizing strength and elegance - qualities we've built into this language.
 
 ---
+
+## 👥 Team
+
+- **Labony Sur** - [@labonysur-cloud](https://github.com/labonysur-cloud)
+- **Aupurba Sarker** - [@aupurbasarker-cloud](https://github.com/aupurbasarker-cloud)
+
 
 **Made with 🧡 for CSE314 - Compiler Design Lab**
 
