@@ -1,0 +1,11 @@
+main function {
+    dhoro x = 20;
+    
+    jodi (x < 10) {
+        dekhaw("x is less than 10");
+    } noyto (x < 30) {
+        dekhaw("x is between 10 and 30");
+    } othoba {
+        dekhaw("x is greater than 30");
+    }
+}

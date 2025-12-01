@@ -1,0 +1,9 @@
+main function {
+    dhoro x = 10;
+    dhoro y = 20;
+    jodi (x < y) {
+        dekhaw("x is smaller");
+    } othoba {
+        dekhaw("x is bigger");
+    }
+}

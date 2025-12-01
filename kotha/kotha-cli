@@ -1,0 +1,436 @@
+#!/bin/bash
+
+# Kotha Programming Language CLI
+# The Royal Bengal Tiger of Programming Languages 🐯
+
+VERSION="1.0.0"
+KOTHA_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+COMPILER="$KOTHA_DIR/kotha"
+
+# Bangladesh flag colors - Red and Green
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+BRIGHT_RED='\033[1;31m'
+BRIGHT_GREEN='\033[1;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+PURPLE='\033[0;35m'
+CYAN='\033[0;36m'
+WHITE='\033[1;37m'
+BOLD='\033[1m'
+NC='\033[0m'
+
+# ASCII Art Logo (Simplified Tiger)
+show_logo() {
+    echo -e "${BRIGHT_RED}"
+    cat << 'LOGO'
+    ██╗  ██╗ ██████╗ ████████╗██╗  ██╗ █████╗ 
+    ██║ ██╔╝██╔═══██╗╚══██╔══╝██║  ██║██╔══██╗
+    █████╔╝ ██║   ██║   ██║   ███████║███████║
+    ██╔═██╗ ██║   ██║   ██║   ██╔══██║██╔══██║
+    ██║  ██╗╚██████╔╝   ██║   ██║  ██║██║  ██║
+    ╚═╝  ╚═╝ ╚═════╝    ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝
+LOGO
+    echo -e "${BRIGHT_GREEN}    The Royal Bengal Tiger of Programming${NC}"
+    echo -e "${WHITE}    Banglish Programming Language v${VERSION}${NC}"
+    echo ""
+}
+
+# Print colored output
+print_success() { echo -e "${BRIGHT_GREEN}✓${NC} $1"; }
+print_error() { echo -e "${BRIGHT_RED}✗${NC} $1"; }
+print_info() { echo -e "${CYAN}ℹ${NC} $1"; }
+print_warning() { echo -e "${YELLOW}⚠${NC} $1"; }
+print_tiger() { echo -e "${BRIGHT_RED}🐯${NC} $1"; }
+
+# Show banner
+show_banner() {
+    show_logo
+}
+
+# Show usage
+show_usage() {
+    show_logo
+    cat << USAGE
+${BOLD}Usage:${NC} kotha <command> [options]
+
+${BOLD}Commands:${NC}
+  ${BRIGHT_GREEN}run${NC} <file>          Compile and run a Kotha program
+  ${BRIGHT_GREEN}build${NC} <file>        Build executable from Kotha code
+  ${BRIGHT_GREEN}compile${NC} <file>      Transpile Kotha to C code
+  ${BRIGHT_GREEN}new${NC} <name>          Create a new Kotha project
+  ${BRIGHT_GREEN}game${NC} <name>         Play built-in games
+  ${BRIGHT_GREEN}test${NC}                Run all test cases
+  ${BRIGHT_GREEN}clean${NC}               Clean generated files
+  ${BRIGHT_GREEN}version${NC}             Show version information
+  ${BRIGHT_GREEN}help${NC}                Show this help message
+
+${BOLD}Available Games:${NC}
+  ${PURPLE}tictactoe${NC}          Classic Tic-Tac-Toe
+  ${PURPLE}dice${NC}               Dice Battle vs Computer
+  ${PURPLE}snake${NC}              Snake Game
+  ${PURPLE}guess${NC}              Number Guessing Game
+
+${BOLD}Examples:${NC}
+  ${CYAN}kotha run program.kotha${NC}
+  ${CYAN}kotha build myapp.kotha${NC}
+  ${CYAN}kotha new myproject${NC}
+  ${CYAN}kotha game tictactoe${NC}
+
+${BRIGHT_RED}Powered by the Royal Bengal Tiger 🐯${NC}
+USAGE
+}
+
+# Show version with logo
+show_version() {
+    show_logo
+    echo -e "${WHITE}Version:${NC} ${VERSION}"
+    echo -e "${WHITE}Author:${NC} Kotha Development Team"
+    echo -e "${WHITE}License:${NC} Educational Use"
+    echo ""
+    echo -e "${BRIGHT_GREEN}A Banglish programming language for Bangladesh${NC}"
+}
+
+# Run a Kotha program
+run_program() {
+    local file="$1"
+    
+    if [ -z "$file" ]; then
+        print_error "No file specified"
+        echo "Usage: kotha run <file.kotha>"
+        exit 1
+    fi
+    
+    if [ ! -f "$file" ]; then
+        print_error "File not found: $file"
+        exit 1
+    fi
+    
+    print_tiger "Compiling $file..."
+    
+    local basename="${file%.kotha}"
+    local c_file="${basename}.c"
+    local exe_file="${basename}"
+    
+    # Transpile to C
+    if ! "$COMPILER" < "$file" > "$c_file" 2>/dev/null; then
+        print_error "Compilation failed"
+        exit 1
+    fi
+    
+    # Compile C to executable
+    if ! gcc "$c_file" -o "$exe_file" 2>/dev/null; then
+        print_error "C compilation failed"
+        rm -f "$c_file"
+        exit 1
+    fi
+    
+    print_success "Compilation successful"
+    print_info "Running $exe_file..."
+    echo ""
+    echo -e "${BRIGHT_GREEN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+    
+    # Run the program
+    if [[ "$exe_file" == /* ]]; then "$exe_file"; else "./$exe_file"; fi
+    local exit_code=$?
+    
+    echo -e "${BRIGHT_GREEN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+    
+    # Cleanup
+    rm -f "$c_file" "$exe_file"
+    
+    if [ $exit_code -eq 0 ]; then
+        print_success "Program completed successfully"
+    else
+        print_warning "Program exited with code $exit_code"
+    fi
+    
+    exit $exit_code
+}
+
+# Build executable
+build_program() {
+    local file="$1"
+    
+    if [ -z "$file" ]; then
+        print_error "No file specified"
+        echo "Usage: kotha build <file.kotha>"
+        exit 1
+    fi
+    
+    if [ ! -f "$file" ]; then
+        print_error "File not found: $file"
+        exit 1
+    fi
+    
+    print_tiger "Building $file..."
+    
+    local basename="${file%.kotha}"
+    local c_file="${basename}.c"
+    local exe_file="${basename}"
+    
+    # Transpile to C
+    if ! "$COMPILER" < "$file" > "$c_file" 2>/dev/null; then
+        print_error "Compilation failed"
+        exit 1
+    fi
+    
+    # Compile C to executable
+    if ! gcc "$c_file" -o "$exe_file" 2>/dev/null; then
+        print_error "C compilation failed"
+        rm -f "$c_file"
+        exit 1
+    fi
+    
+    print_success "Build successful!"
+    print_info "Executable: ${BRIGHT_GREEN}$exe_file${NC}"
+    print_info "C Source: ${CYAN}$c_file${NC}"
+    echo ""
+    print_tiger "Ready to roar! Run with: ./$exe_file"
+}
+
+# Compile to C only
+compile_program() {
+    local file="$1"
+    
+    if [ -z "$file" ]; then
+        print_error "No file specified"
+        echo "Usage: kotha compile <file.kotha>"
+        exit 1
+    fi
+    
+    if [ ! -f "$file" ]; then
+        print_error "File not found: $file"
+        exit 1
+    fi
+    
+    local basename="${file%.kotha}"
+    local c_file="${basename}.c"
+    
+    print_tiger "Transpiling $file to C..."
+    
+    if ! "$COMPILER" < "$file" > "$c_file" 2>/dev/null; then
+        print_error "Transpilation failed"
+        exit 1
+    fi
+    
+    print_success "Transpilation successful: ${CYAN}$c_file${NC}"
+}
+
+# Create new project
+create_project() {
+    local name="$1"
+    
+    if [ -z "$name" ]; then
+        print_error "No project name specified"
+        echo "Usage: kotha new <project-name>"
+        exit 1
+    fi
+    
+    if [ -d "$name" ]; then
+        print_error "Directory already exists: $name"
+        exit 1
+    fi
+    
+    print_tiger "Creating new Kotha project: ${BRIGHT_GREEN}$name${NC}"
+    
+    mkdir -p "$name"
+    
+    cat > "$name/main.kotha" << 'MAINKOTHA'
+main function {
+    dekhaw("Welcome to Kotha!");
+    dekhaw("The Royal Bengal Tiger of Programming");
+    dekhaw("");
+    dekhaw("Your project is ready to roar!");
+}
+MAINKOTHA
+    
+    cat > "$name/README.md" << READMEMD
+# $name
+
+A Kotha programming language project.
+
+## 🐯 About Kotha
+Kotha is a Banglish programming language - the Royal Bengal Tiger of programming!
+
+## 🚀 Quick Start
+
+Run your program:
+\`\`\`bash
+kotha run main.kotha
+\`\`\`
+
+Build executable:
+\`\`\`bash
+kotha build main.kotha
+./main
+\`\`\`
+
+## 📚 Learn More
+- Check out the game examples
+- Read the language documentation
+- Join the Kotha community
+
+Happy coding! 🐯
+READMEMD
+    
+    print_success "Project created: ${BRIGHT_GREEN}$name/${NC}"
+    echo ""
+    print_info "Next steps:"
+    echo -e "  ${CYAN}cd $name${NC}"
+    echo -e "  ${CYAN}kotha run main.kotha${NC}"
+    echo ""
+    print_tiger "Let your code roar!"
+}
+
+# Run a game
+run_game() {
+    local game="$1"
+    
+    if [ -z "$game" ]; then
+        print_error "No game specified"
+        echo ""
+        echo "Available games:"
+        echo -e "  ${PURPLE}tictactoe${NC} - Classic Tic-Tac-Toe"
+        echo -e "  ${PURPLE}dice${NC}      - Dice Battle"
+        echo -e "  ${PURPLE}snake${NC}     - Snake Game"
+        echo -e "  ${PURPLE}guess${NC}     - Number Guessing"
+        exit 1
+    fi
+    
+    case "$game" in
+        tictactoe|tic)
+            if [ -f "$KOTHA_DIR/game_tictactoe" ]; then
+                print_tiger "Starting Tic-Tac-Toe..."
+                echo ""
+                "$KOTHA_DIR/game_tictactoe"
+            else
+                print_error "Tic-Tac-Toe game not found"
+                exit 1
+            fi
+            ;;
+        dice)
+            if [ -f "$KOTHA_DIR/game_dice" ]; then
+                print_tiger "Starting Dice Battle..."
+                echo ""
+                "$KOTHA_DIR/game_dice"
+            else
+                print_error "Dice game not found"
+                exit 1
+            fi
+            ;;
+        snake)
+            if [ -f "$KOTHA_DIR/game_snake" ]; then
+                print_tiger "Starting Snake Game..."
+                echo ""
+                "$KOTHA_DIR/game_snake"
+            else
+                print_error "Snake game not found"
+                exit 1
+            fi
+            ;;
+        guess|number)
+            if [ -f "$KOTHA_DIR/game_number_guess" ]; then
+                print_tiger "Starting Number Guessing..."
+                echo ""
+                "$KOTHA_DIR/game_number_guess"
+            else
+                print_error "Number guessing game not found"
+                exit 1
+            fi
+            ;;
+        *)
+            print_error "Unknown game: $game"
+            echo ""
+            echo "Available games:"
+            echo -e "  ${PURPLE}tictactoe${NC}, ${PURPLE}dice${NC}, ${PURPLE}snake${NC}, ${PURPLE}guess${NC}"
+            exit 1
+            ;;
+    esac
+}
+
+# Run tests
+run_tests() {
+    print_tiger "Running Kotha compiler tests..."
+    echo ""
+    
+    local passed=0
+    local failed=0
+    
+    for test_file in "$KOTHA_DIR"/test*.kotha; do
+        if [ -f "$test_file" ]; then
+            local basename=$(basename "$test_file" .kotha)
+            local c_file="/tmp/${basename}_test.c"
+            local exe_file="/tmp/${basename}_test"
+            
+            echo -n "  Testing ${CYAN}$basename${NC}... "
+            
+            if "$COMPILER" < "$test_file" > "$c_file" 2>/dev/null && \
+               gcc "$c_file" -o "$exe_file" 2>/dev/null && \
+               "$exe_file" > /dev/null 2>&1; then
+                print_success "PASSED"
+                ((passed++))
+            else
+                print_error "FAILED"
+                ((failed++))
+            fi
+            
+            rm -f "$c_file" "$exe_file"
+        fi
+    done
+    
+    echo ""
+    echo -e "${BRIGHT_GREEN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+    echo -e "  Results: ${BRIGHT_GREEN}$passed passed${NC}, ${BRIGHT_RED}$failed failed${NC}"
+    echo -e "${BRIGHT_GREEN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+    
+    if [ $failed -eq 0 ]; then
+        print_tiger "All tests passed! The tiger is strong!"
+        exit 0
+    else
+        print_warning "Some tests failed"
+        exit 1
+    fi
+}
+
+# Clean generated files
+clean_files() {
+    print_tiger "Cleaning generated files..."
+    
+    rm -f *.c
+    rm -f test_output* output_*
+    rm -f lex.yy.c parser.tab.c parser.tab.h
+    
+    print_success "Clean complete"
+}
+
+# Main command dispatcher
+case "${1:-help}" in
+    run)
+        run_program "$2"
+        ;;
+    build)
+        build_program "$2"
+        ;;
+    compile)
+        compile_program "$2"
+        ;;
+    new)
+        create_project "$2"
+        ;;
+    game)
+        run_game "$2"
+        ;;
+    test)
+        run_tests
+        ;;
+    clean)
+        clean_files
+        ;;
+    version|--version|-v)
+        show_version
+        ;;
+    help|--help|-h|*)
+        show_usage
+        ;;
+esac

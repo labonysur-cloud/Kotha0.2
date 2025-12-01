@@ -1,0 +1,107 @@
+talika board[9];
+dhoro current_player = 1;
+dhoro game_over = 0;
+dhoro winner = 0;
+
+void kaj initialize_board() {
+    cholbe (i theke 0 porjonto 8) {
+        board[i] = 0;
+    }
+}
+
+void kaj display_board() {
+    porishkar();
+    dekhaw("=== TIC-TAC-TOE ===");
+    dekhaw("");
+    
+    dhoro row = 0;
+    cholbe (i theke 0 porjonto 8) {
+        jodi (board[i] == 0) {
+            dekhaw(i + 1);
+        } othoba {
+            jodi (board[i] == 1) {
+                dekhaw("X");
+            } othoba {
+                dekhaw("O");
+            }
+        }
+        
+        dhoro next = i + 1;
+        jodi (next % 3 == 0) {
+            dekhaw("");
+        }
+    }
+    dekhaw("");
+}
+
+kaj check_winner() {
+    cholbe (i theke 0 porjonto 2) {
+        dhoro start = i * 3;
+        dhoro next1 = start + 1;
+        dhoro next2 = start + 2;
+        jodi (board[start] != 0 && board[start] == board[next1] && board[start] == board[next2]) {
+            ferot board[start];
+        }
+    }
+    
+    cholbe (i theke 0 porjonto 2) {
+        dhoro mid = i + 3;
+        dhoro end = i + 6;
+        jodi (board[i] != 0 && board[i] == board[mid] && board[i] == board[end]) {
+            ferot board[i];
+        }
+    }
+    
+    jodi (board[0] != 0 && board[0] == board[4] && board[0] == board[8]) {
+        ferot board[0];
+    }
+    jodi (board[2] != 0 && board[2] == board[4] && board[2] == board[6]) {
+        ferot board[2];
+    }
+    
+    ferot 0;
+}
+
+main function {
+    initialize_board();
+    
+    cholbe (turn theke 1 porjonto 9) {
+        display_board();
+        
+        dekhaw("Player");
+        dekhaw(current_player);
+        dekhaw("enter position (1-9):");
+        
+        dhoro move;
+        nao(move);
+        move--;
+        
+        jodi (move >= 0 && move < 9 && board[move] == 0) {
+            board[move] = current_player;
+            
+            winner = check_winner();
+            jodi (winner != 0) {
+                display_board();
+                dekhaw("Player");
+                dekhaw(winner);
+                dekhaw("WINS!");
+                game_over = 1;
+                turn = 10;
+            } othoba {
+                jodi (current_player == 1) {
+                    current_player = 2;
+                } othoba {
+                    current_player = 1;
+                }
+            }
+        } othoba {
+            dekhaw("Invalid move! Try again.");
+            turn--;
+        }
+    }
+    
+    jodi (game_over == 0) {
+        display_board();
+        dekhaw("DRAW!");
+    }
+}

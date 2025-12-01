@@ -1,0 +1,35 @@
+# Compiled files
+*.o
+*.out
+lex.yy.c
+parser.tab.c
+parser.tab.h
+
+# Executables (except games and kotha binary)
+output*
+test_output*
+*_output
+
+# Temporary files
+*.log
+*.tmp
+nohup.out
+ide.log
+server.log
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# macOS
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
+
+# Keep these
+!kotha
+!kotha-cli
+!game_*

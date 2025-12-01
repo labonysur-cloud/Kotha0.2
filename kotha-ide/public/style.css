@@ -1,0 +1,191 @@
+/* 90s Retro Aesthetic - Windows 95 Style */
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+:root {
+    --bg-color: #008080;
+    --win-gray: #c0c0c0;
+    --win-text: #000000;
+    --win-light: #ffffff;
+    --win-dark: #808080;
+    --win-darker: #000000;
+    --title-blue: #000080;
+    --title-light: #1084d0;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-color);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 15px;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.desktop {
+    display: flex;
+    gap: 15px;
+    height: 100%;
+    width: 100%;
+}
+
+.window {
+    background-color: var(--win-gray);
+    box-shadow: inset 1px 1px #dfdfdf, 1px 1px #000000;
+    border: 2px solid var(--win-gray);
+    border-top-color: var(--win-light);
+    border-left-color: var(--win-light);
+    border-right-color: var(--win-dark);
+    border-bottom-color: var(--win-dark);
+    display: flex;
+    flex-direction: column;
+    padding: 3px;
+}
+
+#ide-window {
+    flex: 0 0 65%;
+    min-width: 0;
+}
+
+#console-window {
+    flex: 0 0 calc(35% - 15px);
+    min-width: 0;
+}
+
+.title-bar {
+    background: linear-gradient(90deg, var(--title-blue), var(--title-light));
+    padding: 3px 2px 3px 3px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.title-bar-text {
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+    margin-left: 2px;
+}
+
+.title-bar-controls {
+    display: flex;
+    gap: 2px;
+}
+
+.title-bar-controls button {
+    width: 16px;
+    height: 14px;
+    background-color: var(--win-gray);
+    border: 1px solid white;
+    border-right-color: black;
+    border-bottom-color: black;
+    box-shadow: inset 1px 1px #dfdfdf;
+}
+
+.window-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    overflow: hidden;
+    min-height: 0;
+}
+
+.menu-bar {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 5px;
+    flex-shrink: 0;
+}
+
+.menu-bar span {
+    cursor: pointer;
+    padding: 2px 5px;
+}
+
+.menu-bar span:hover {
+    background-color: var(--title-blue);
+    color: white;
+}
+
+.toolbar {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 2px solid var(--win-dark);
+    box-shadow: 0 1px 0 white;
+    flex-shrink: 0;
+}
+
+.btn-90s {
+    background-color: var(--win-gray);
+    border: 2px solid white;
+    border-right-color: var(--win-dark);
+    border-bottom-color: var(--win-dark);
+    padding: 4px 10px;
+    font-family: inherit;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.btn-90s:active {
+    border: 2px solid var(--win-dark);
+    border-right-color: white;
+    border-bottom-color: white;
+    transform: translate(1px, 1px);
+}
+
+.editor-container {
+    flex: 1;
+    border: 2px solid var(--win-dark);
+    border-right-color: white;
+    border-bottom-color: white;
+    background-color: white;
+    margin-bottom: 5px;
+    overflow: hidden;
+    min-height: 0;
+}
+
+#code-editor {
+    width: 100%;
+    height: 100%;
+    border: none;
+    resize: none;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 16px;
+    padding: 5px;
+    outline: none;
+}
+
+.status-bar {
+    border: 2px solid var(--win-dark);
+    border-right-color: white;
+    border-bottom-color: white;
+    padding: 2px 5px;
+    display: flex;
+    gap: 20px;
+    font-size: 12px;
+    flex-shrink: 0;
+}
+
+#console-output {
+    background-color: black;
+    color: #00ff00;
+    font-family: 'VT323', monospace;
+    font-size: 18px;
+    padding: 10px;
+    margin: 0;
+    height: 100%;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    border: 2px solid var(--win-dark);
+    border-right-color: white;
+    border-bottom-color: white;
+}

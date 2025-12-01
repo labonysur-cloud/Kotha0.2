@@ -1,0 +1,26 @@
+main function {
+    dekhaw("=== Number Guessing Game ===");
+    dhoro secret = random(100) + 1;
+    dhoro guess;
+    dhoro attempts = 0;
+    
+    dekhaw("I'm thinking of a number between 1 and 100!");
+    
+    jotokkhon (guess != secret) {
+        dekhaw("Enter your guess:");
+        nao(guess);
+        attempts++;
+        
+        jodi (guess < secret) {
+            dekhaw("Too low! Try again.");
+        } othoba {
+            jodi (guess > secret) {
+                dekhaw("Too high! Try again.");
+            } othoba {
+                dekhaw("Correct! You won!");
+                dekhaw(attempts);
+                dekhaw("attempts");
+            }
+        }
+    }
+}

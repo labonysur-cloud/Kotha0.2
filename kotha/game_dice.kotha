@@ -1,0 +1,70 @@
+dhoro player_score = 0;
+dhoro computer_score = 0;
+
+void kaj roll_dice() {
+    dekhaw("Rolling dice...");
+    wait(1);
+}
+
+main function {
+    dekhaw("=== DICE BATTLE ===");
+    dekhaw("Best of 5 rounds!");
+    dekhaw("");
+    
+    cholbe (round theke 1 porjonto 5) {
+        dekhaw("Round");
+        dekhaw(round);
+        dekhaw("");
+        
+        dekhaw("Press 1 to roll:");
+        dhoro ready;
+        nao(ready);
+        
+        roll_dice();
+        
+        dhoro player_dice = random(6) + 1;
+        dhoro computer_dice = random(6) + 1;
+        
+        dekhaw("You rolled:");
+        dekhaw(player_dice);
+        dekhaw("Computer rolled:");
+        dekhaw(computer_dice);
+        
+        jodi (player_dice > computer_dice) {
+            dekhaw("You win this round!");
+            player_score++;
+        } othoba {
+            jodi (computer_dice > player_dice) {
+                dekhaw("Computer wins this round!");
+                computer_score++;
+            } othoba {
+                dekhaw("Tie!");
+            }
+        }
+        
+        dekhaw("Score - You:");
+        dekhaw(player_score);
+        dekhaw("Computer:");
+        dekhaw(computer_score);
+        dekhaw("");
+        wait(2);
+    }
+    
+    porishkar();
+    dekhaw("=== FINAL RESULTS ===");
+    dekhaw("Your score:");
+    dekhaw(player_score);
+    dekhaw("Computer score:");
+    dekhaw(computer_score);
+    dekhaw("");
+    
+    jodi (player_score > computer_score) {
+        dekhaw("YOU WIN THE GAME!");
+    } othoba {
+        jodi (computer_score > player_score) {
+            dekhaw("COMPUTER WINS!");
+        } othoba {
+            dekhaw("IT'S A TIE!");
+        }
+    }
+}

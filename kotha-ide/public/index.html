@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kotha IDE 95</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="desktop">
+        <div class="window" id="ide-window">
+            <div class="title-bar">
+                <div class="title-bar-text">Kotha IDE - Untitled.kotha</div>
+                <div class="title-bar-controls">
+                    <button aria-label="Minimize"></button>
+                    <button aria-label="Maximize"></button>
+                    <button aria-label="Close"></button>
+                </div>
+            </div>
+            <div class="window-body">
+                <div class="menu-bar">
+                    <span><u>F</u>ile</span>
+                    <span><u>E</u>dit</span>
+                    <span><u>S</u>earch</span>
+                    <span><u>H</u>elp</span>
+                </div>
+                <div class="toolbar">
+                    <button id="btn-run" class="btn-90s">
+                        <span class="icon">▶</span> Run
+                    </button>
+                    <button id="btn-new" class="btn-90s">
+                        <span class="icon">📄</span> New
+                    </button>
+                    <button id="btn-save" class="btn-90s">
+                        <span class="icon">💾</span> Save
+                    </button>
+                </div>
+                <div class="editor-container">
+                    <textarea id="code-editor" spellcheck="false">main function {
+    dhoro x = 10;
+    dhoro y = 20;
+    dekhaw("Hello from Kotha IDE!");
+    dekhaw(x + y);
+}</textarea>
+                </div>
+                <div class="status-bar">
+                    <p class="status-field">Line 1, Col 1</p>
+                    <p class="status-field">Kotha Compiler Ready</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="window" id="console-window">
+            <div class="title-bar">
+                <div class="title-bar-text">Output Console</div>
+                <div class="title-bar-controls">
+                    <button aria-label="Close"></button>
+                </div>
+            </div>
+            <div class="window-body">
+                <pre id="console-output">Waiting for program...</pre>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
