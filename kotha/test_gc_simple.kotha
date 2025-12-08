@@ -1,0 +1,27 @@
+// Simple GC test - just numbers
+main function {
+    dekhaw("Starting GC test");
+    
+    // Create many variables to trigger GC
+    dhoro a = 1;
+    dhoro b = 2;
+    dhoro c = 3;
+    dhoro d = 4;
+    dhoro e = 5;
+    
+    dekhaw(a);
+    dekhaw(b);
+    dekhaw(c);
+    dekhaw(d);
+    dekhaw(e);
+    
+    // Loop to create more allocations
+    dhoro i = 0;
+    jotokkhon (i < 10) {
+        dhoro x = i;
+        dekhaw(x);
+        i++;
+    }
+    
+    dekhaw("GC test done");
+}

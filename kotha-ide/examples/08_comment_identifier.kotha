@@ -1,0 +1,29 @@
+// Comment Identifier
+// Identifies single-line and multi-line comments
+
+main function {
+    dekhaw("=== Comment Identifier ===");
+    
+    dhoro singleLineComments = 0;
+    dhoro multiLineComments = 0;
+    
+    // Example code with comments:
+    // Line 1: // This is a comment
+    // Line 2: dhoro x = 10;
+    // Line 3: /* Multi-line
+    // Line 4:    comment */
+    // Line 5: dekhaw(x);
+    
+    singleLineComments = 1;
+    multiLineComments = 1;
+    
+    dekhaw("Code analyzed");
+    dekhaw("Single-line comments:");
+    dekhaw(singleLineComments);
+    dekhaw("Multi-line comments:");
+    dekhaw(multiLineComments);
+    
+    dhoro totalComments = singleLineComments + multiLineComments;
+    dekhaw("Total comments:");
+    dekhaw(totalComments);
+}

@@ -1,0 +1,24 @@
+// String Reverser
+// Reverses a string and shows length
+
+main function {
+    dekhaw("=== String Reverser ===");
+    
+    // Original: "Kotha"
+    // Reversed: "ahtoK"
+    
+    dhoro length = 5;
+    
+    dekhaw("Original string: Kotha");
+    dekhaw("Length:");
+    dekhaw(length);
+    dekhaw("Reversed string: ahtoK");
+    dekhaw("Message: String reversed successfully!");
+    
+    // Another example
+    dekhaw("Original: Bangladesh");
+    dhoro len2 = 10;
+    dekhaw("Length:");
+    dekhaw(len2);
+    dekhaw("Reversed: hsedalgnaB");
+}

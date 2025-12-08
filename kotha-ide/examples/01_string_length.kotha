@@ -1,0 +1,26 @@
+// String Length Counter
+// Counts the length of a string in Kotha
+
+main function {
+    dekhaw("=== String Length Counter ===");
+    
+    // String to measure
+    dhoro text = "Hello Kotha";
+    
+    // Count length (simulated - will need string library)
+    dhoro length = 11;  // strlen equivalent
+    
+    dekhaw("String:");
+    dekhaw(text);
+    dekhaw("Length:");
+    dekhaw(length);
+    
+    // Another example
+    dhoro name = "Bangladesh";
+    dhoro nameLen = 10;
+    
+    dekhaw("Country:");
+    dekhaw(name);
+    dekhaw("Length:");
+    dekhaw(nameLen);
+}

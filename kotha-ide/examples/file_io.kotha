@@ -1,0 +1,47 @@
+// File I/O Example
+// Demonstrates file operations in Kotha
+
+main function {
+    dekhaw("=== File I/O Demo ===");
+    
+    // Write to file
+    dhoro filename = "test.txt";
+    dhoro content = "Hello from Kotha!";
+    
+    dekhaw("Writing to file...");
+    kotha_fwrite(filename, content);
+    dekhaw("File written!");
+    
+    // Check if file exists
+    dhoro exists = kotha_fexists(filename);
+    jodi (exists) {
+        dekhaw("File exists!");
+    } othoba {
+        dekhaw("File not found!");
+    }
+    
+    // Get file size
+    dhoro size = kotha_fsize(filename);
+    dekhaw("File size:");
+    dekhaw(size);
+    dekhaw("bytes");
+    
+    // Read from file
+    dekhaw("Reading from file...");
+    dhoro readContent = kotha_fread(filename);
+    dekhaw("Content:");
+    dekhaw(readContent);
+    
+    // Rename file
+    dhoro newname = "output.txt";
+    dekhaw("Renaming file...");
+    kotha_frename(filename, newname);
+    dekhaw("File renamed!");
+    
+    // Delete file
+    dekhaw("Deleting file...");
+    kotha_fdelete(newname);
+    dekhaw("File deleted!");
+    
+    dekhaw("File I/O demo complete!");
+}

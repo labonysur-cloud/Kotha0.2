@@ -1,0 +1,40 @@
+// Identifier Validator
+// Checks if input is a valid identifier
+
+main function {
+    dekhaw("=== Identifier Validator ===");
+    
+    // Valid identifier rules:
+    // 1. Starts with letter or underscore
+    // 2. Contains only letters, digits, underscore
+    // 3. Not a keyword
+    
+    dhoro isValid = 1;  // 1 = true, 0 = false
+    
+    // Test case 1: "myVariable" - VALID
+    dekhaw("Test: myVariable");
+    isValid = 1;
+    jodi (isValid == 1) {
+        dekhaw("Result: VALID identifier");
+    } othoba {
+        dekhaw("Result: INVALID identifier");
+    }
+    
+    // Test case 2: "123abc" - INVALID (starts with digit)
+    dekhaw("Test: 123abc");
+    isValid = 0;
+    jodi (isValid == 1) {
+        dekhaw("Result: VALID identifier");
+    } othoba {
+        dekhaw("Result: INVALID identifier");
+    }
+    
+    // Test case 3: "_temp" - VALID
+    dekhaw("Test: _temp");
+    isValid = 1;
+    jodi (isValid == 1) {
+        dekhaw("Result: VALID identifier");
+    } othoba {
+        dekhaw("Result: INVALID identifier");
+    }
+}

@@ -1,0 +1,6 @@
+main function {
+    dhoro x = 10;
+    dhoro y = 20;
+    dekhaw("Hello from Kotha IDE!");
+    dekhaw(x + y);
+}

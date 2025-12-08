@@ -36,7 +36,14 @@ void yyerror(const char *s);
 "void"        { return VOID; }
 "main function" { return MAIN; }
 
-"include"[ ]*\"[^"]*\"  { /* Ignore includes */ }
+    /* Exception Handling Keywords */
+"try"           { return TRY; }
+"catch"         { return CATCH; }
+"finally"       { return FINALLY; }
+"throw"         { return THROW; }
+
+"include"       { return INCLUDE; }
+
 
 [a-zA-Z_][a-zA-Z0-9_]*  { yylval.sval = strdup(yytext); return ID; }
 [0-9]+                  { yylval.ival = atoi(yytext); return INT; }
@@ -81,6 +88,7 @@ void yyerror(const char *s);
 ":"             { return COLON; }
 
 [ \t\n]+        { /* ignore whitespace */ }
+"//".*          { /* ignore comments */ }
 .               { printf("Unknown character: %s\n", yytext); }
 
 %%

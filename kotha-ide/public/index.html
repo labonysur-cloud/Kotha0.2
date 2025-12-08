@@ -1,67 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kotha IDE 95</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=4.0">
 </head>
+
 <body>
-    <div class="desktop">
-        <div class="window" id="ide-window">
+    <div class="ide-container">
+        <!-- Left Panel: Editor -->
+        <div class="editor-panel window">
             <div class="title-bar">
-                <div class="title-bar-text">Kotha IDE - Untitled.kotha</div>
+                <div class="title-bar-text">Kotha IDE - <span id="current-file">Untitled.kotha</span></div>
                 <div class="title-bar-controls">
-                    <button aria-label="Minimize"></button>
-                    <button aria-label="Maximize"></button>
-                    <button aria-label="Close"></button>
+                    <button>_</button>
+                    <button>□</button>
+                    <button>X</button>
                 </div>
             </div>
-            <div class="window-body">
-                <div class="menu-bar">
-                    <span><u>F</u>ile</span>
-                    <span><u>E</u>dit</span>
-                    <span><u>S</u>earch</span>
-                    <span><u>H</u>elp</span>
-                </div>
-                <div class="toolbar">
-                    <button id="btn-run" class="btn-90s">
-                        <span class="icon">▶</span> Run
-                    </button>
-                    <button id="btn-new" class="btn-90s">
-                        <span class="icon">📄</span> New
-                    </button>
-                    <button id="btn-save" class="btn-90s">
-                        <span class="icon">💾</span> Save
-                    </button>
-                </div>
-                <div class="editor-container">
-                    <textarea id="code-editor" spellcheck="false">main function {
+
+            <!-- Menu Bar -->
+            <div class="menu-bar">
+                <span id="menu-file" class="menu-item">File</span>
+                <span id="menu-edit" class="menu-item">Edit</span>
+                <span id="menu-search" class="menu-item">Search</span>
+                <span id="menu-help" class="menu-item">Help</span>
+            </div>
+
+            <!-- Toolbar -->
+            <div class="toolbar">
+                <button id="btn-run" class="btn-90s">▶ Run</button>
+                <button id="btn-new" class="btn-90s">📄 New</button>
+                <button id="btn-save" class="btn-90s">💾 Save</button>
+                <div class="toolbar-separator"></div>
+                <button id="btn-open-explorer" class="btn-90s">📁 Files</button>
+                <button id="btn-theme" class="btn-90s">🌓 Theme</button>
+            </div>
+
+            <!-- Code Editor -->
+            <div class="editor-container">
+                <div class="line-numbers" id="line-numbers">1</div>
+                <textarea id="code-editor" spellcheck="false">main function {
     dhoro x = 10;
     dhoro y = 20;
     dekhaw("Hello from Kotha IDE!");
     dekhaw(x + y);
 }</textarea>
-                </div>
-                <div class="status-bar">
-                    <p class="status-field">Line 1, Col 1</p>
-                    <p class="status-field">Kotha Compiler Ready</p>
-                </div>
+            </div>
+
+            <!-- Status Bar -->
+            <div class="status-bar">
+                <span id="status-position">Line 1, Col 1</span>
+                <span id="status-language">Kotha</span>
+                <span id="status-message">Kotha Compiler Ready</span>
             </div>
         </div>
 
-        <div class="window" id="console-window">
+        <!-- Right Panel: Output Console -->
+        <div class="console-panel window">
             <div class="title-bar">
                 <div class="title-bar-text">Output Console</div>
                 <div class="title-bar-controls">
-                    <button aria-label="Close"></button>
+                    <button id="btn-clear">CLR</button>
                 </div>
             </div>
-            <div class="window-body">
-                <pre id="console-output">Waiting for program...</pre>
+            <pre id="console-output">Waiting for program...</pre>
+        </div>
+    </div>
+
+    <!-- File Explorer Modal -->
+    <div id="file-explorer-modal" class="modal" style="display: none;">
+        <div class="modal-content window">
+            <div class="title-bar">
+                <div class="title-bar-text">📁 Project Files</div>
+                <div class="title-bar-controls">
+                    <button id="close-explorer">X</button>
+                </div>
+            </div>
+            <div class="explorer-body">
+                <div class="explorer-toolbar">
+                    <button id="btn-new-file" class="btn-90s">New File</button>
+                    <button id="btn-new-folder" class="btn-90s">New Folder</button>
+                    <button id="btn-upload" class="btn-90s">Upload</button>
+                </div>
+                <div id="file-tree" class="file-tree">
+                    <div class="tree-header">EXAMPLES</div>
+                    <!-- Files will be loaded here -->
+                </div>
             </div>
         </div>
     </div>
-    <script src="script.js"></script>
+
+    <!-- Input Dialog Modal -->
+    <div id="input-modal" class="modal" style="display: none;">
+        <div class="modal-content window" style="max-width: 500px;">
+            <div class="title-bar">
+                <div class="title-bar-text">⌨️ User Input Required</div>
+            </div>
+            <div class="input-body" style="padding: 20px;">
+                <div id="input-prompts">
+                    <!-- Input prompts will be dynamically added here -->
+                </div>
+                <div style="margin-top: 20px; text-align: right;">
+                    <button id="btn-submit-inputs" class="btn-90s" style="padding: 8px 20px;">Submit All</button>
+                    <button id="btn-cancel-inputs" class="btn-90s"
+                        style="padding: 8px 20px; margin-left: 10px;">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js?v=5.0"></script>
 </body>
+
 </html>

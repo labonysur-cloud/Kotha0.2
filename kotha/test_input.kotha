@@ -1,0 +1,12 @@
+main function {
+    dekhaw("Enter a number: ");
+    dhoro age;
+    nao(age);
+    
+    dekhaw("You entered: ");
+    dekhaw(age);
+    
+    dhoro doubled = age * 2;
+    dekhaw("Doubled: ");
+    dekhaw(doubled);
+}

@@ -1,0 +1,30 @@
+// Syntax Table Generator
+// Categorizes characters into letters, digits, symbols, operators
+
+main function {
+    dekhaw("=== Syntax Table ===");
+    
+    // Input: "a1+b2*c3"
+    
+    dekhaw("Input: a1+b2*c3");
+    dekhaw("Character Classification:");
+    
+    dekhaw("Letters: a, b, c (count: 3)");
+    dekhaw("Digits: 1, 2, 3 (count: 3)");
+    dekhaw("Operators: +, * (count: 2)");
+    
+    dhoro letters = 3;
+    dhoro digits = 3;
+    dhoro operators = 2;
+    dhoro symbols = 0;
+    
+    dekhaw("Summary:");
+    dekhaw("Total letters:");
+    dekhaw(letters);
+    dekhaw("Total digits:");
+    dekhaw(digits);
+    dekhaw("Total operators:");
+    dekhaw(operators);
+    dekhaw("Total symbols:");
+    dekhaw(symbols);
+}

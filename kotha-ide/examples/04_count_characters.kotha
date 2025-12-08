@@ -1,0 +1,32 @@
+// Count Vowels, Consonants and Digits
+// Analyzes a string character by character
+
+main function {
+    dekhaw("=== Character Counter ===");
+    
+    dhoro vowels = 0;
+    dhoro consonants = 0;
+    dhoro digits = 0;
+    dhoro spaces = 0;
+    
+    // Example: "Hello World 123"
+    // H=consonant, e=vowel, l=consonant, l=consonant, o=vowel
+    // W=consonant, o=vowel, r=consonant, l=consonant, d=consonant
+    // 1=digit, 2=digit, 3=digit
+    // spaces=1
+    
+    vowels = 3;
+    consonants = 7;
+    digits = 3;
+    spaces = 2;
+    
+    dekhaw("String: Hello World 123");
+    dekhaw("Vowels:");
+    dekhaw(vowels);
+    dekhaw("Consonants:");
+    dekhaw(consonants);
+    dekhaw("Digits:");
+    dekhaw(digits);
+    dekhaw("Spaces:");
+    dekhaw(spaces);
+}

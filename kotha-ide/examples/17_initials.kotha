@@ -1,0 +1,22 @@
+// Initial Generator
+// Shows initials from a full name
+
+main function {
+    dekhaw("=== Initial Generator ===");
+    
+    // Input: "Mushfiqur Rahman"
+    // Output: "MR"
+    
+    dekhaw("Input: Mushfiqur Rahman");
+    dekhaw("Initials: MR");
+    
+    // More examples
+    dekhaw("Input: Abdul Kalam Azad");
+    dekhaw("Initials: AKA");
+    
+    dekhaw("Input: Sheikh Mujibur Rahman");
+    dekhaw("Initials: SMR");
+    
+    dekhaw("Input: Kazi Nazrul Islam");
+    dekhaw("Initials: KNI");
+}

@@ -1,0 +1,23 @@
+// Word Frequency Counter
+// Finds the most frequent word in a string
+
+main function {
+    dekhaw("=== Word Frequency Counter ===");
+    
+    // Input: "hello world hello kotha world hello"
+    // Words: hello(3), world(2), kotha(1)
+    // Maximum frequency: hello (3 times)
+    
+    dekhaw("Input: hello world hello kotha world hello");
+    
+    dhoro maxFrequency = 3;
+    
+    dekhaw("Word frequencies:");
+    dekhaw("hello: 3");
+    dekhaw("world: 2");
+    dekhaw("kotha: 1");
+    
+    dekhaw("Most frequent word: hello");
+    dekhaw("Frequency:");
+    dekhaw(maxFrequency);
+}

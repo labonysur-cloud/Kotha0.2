@@ -1,0 +1,7 @@
+// Simpler test - no type errors
+main function {
+    dhoro x = 5;
+    dhoro y = 3;
+    dhoro result = x + y;
+    dekhaw(result);
+}

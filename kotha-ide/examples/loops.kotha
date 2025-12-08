@@ -1,0 +1,30 @@
+// Loop and Conditional Example
+main function {
+    dekhaw("=== Loops and Conditions ===");
+    
+    // For loop
+    dekhaw("Counting 1 to 5:");
+    cholbe (i theke 1 porjonto 5) {
+        dekhaw(i);
+    }
+    
+    // While loop
+    dhoro count = 0;
+    dekhaw("While loop:");
+    jotokkhon (count < 3) {
+        dekhaw(count);
+        count++;
+    }
+    
+    // If-else
+    dhoro score = 85;
+    jodi (score >= 90) {
+        dekhaw("Grade: A");
+    } noyto (score >= 80) {
+        dekhaw("Grade: B");
+    } noyto (score >= 70) {
+        dekhaw("Grade: C");
+    } othoba {
+        dekhaw("Grade: F");
+    }
+}

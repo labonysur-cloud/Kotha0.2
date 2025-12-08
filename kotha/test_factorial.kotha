@@ -1,0 +1,16 @@
+// Test factorial function
+kaj factorial(n) {
+    jodi (n <= 1) {
+        ferot 1;
+    } othoba {
+        dhoro temp = n - 1;
+        dhoro rec = factorial(temp);
+        dhoro result = n * rec;
+        ferot result;
+    }
+}
+
+main function {
+    dhoro result = factorial(5);
+    dekhaw(result);
+}

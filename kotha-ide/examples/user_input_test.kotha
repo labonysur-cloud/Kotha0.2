@@ -1,0 +1,23 @@
+// Simple User Input Test
+// This program demonstrates the nao() function for user input
+
+main function {
+    dhoro age;
+    dhoro year;
+    
+    dekhaw("Enter your age:");
+    nao(age);
+    
+    dekhaw("Enter current year:");
+    nao(year);
+    
+    dekhaw("Your age is:");
+    dekhaw(age);
+    
+    dekhaw("Current year is:");
+    dekhaw(year);
+    
+    dhoro birth_year = year - age;
+    dekhaw("You were born in:");
+    dekhaw(birth_year);
+}

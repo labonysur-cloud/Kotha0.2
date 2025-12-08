@@ -1,7 +1,0 @@
-main function {
-    sthir PI = 3;
-    dhoro r = 10;
-    dhoro area = PI * r * r;
-    dekhaw("Area with constant PI:");
-    dekhaw(area);
-}

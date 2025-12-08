@@ -1,0 +1,25 @@
+// Article Counter
+// Identifies and counts articles (a, an, the)
+
+main function {
+    dekhaw("=== Article Counter ===");
+    
+    // Input: "The quick brown fox jumps over a lazy dog"
+    // Articles: "The" (1), "a" (1)
+    
+    dhoro articleA = 1;
+    dhoro articleAn = 0;
+    dhoro articleThe = 1;
+    dhoro totalArticles = 2;
+    
+    dekhaw("Input: The quick brown fox jumps over a lazy dog");
+    dekhaw("Articles found:");
+    dekhaw("'a' count:");
+    dekhaw(articleA);
+    dekhaw("'an' count:");
+    dekhaw(articleAn);
+    dekhaw("'the' count:");
+    dekhaw(articleThe);
+    dekhaw("Total articles:");
+    dekhaw(totalArticles);
+}

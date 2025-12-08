@@ -1,0 +1,41 @@
+// User Input Example
+// Demonstrates taking input from user using 'nao' keyword
+
+main function {
+    dekhaw("=== User Input Example ===");
+    
+    // Note: Input functionality requires terminal interaction
+    // In the web IDE, this will show how the code structure works
+    
+    dekhaw("Enter your name:");
+    // dhoro name = nao();  // This would read input
+    
+    // For now, we'll demonstrate with predefined values
+    dhoro name = "User";
+    dekhaw("Hello,");
+    dekhaw(name);
+    
+    dekhaw("Enter your age:");
+    // dhoro age = nao();  // This would read number input
+    dhoro age = 25;
+    
+    dekhaw("You are");
+    dekhaw(age);
+    dekhaw("years old");
+    
+    // Calculate birth year
+    dhoro currentYear = 2024;
+    dhoro birthYear = currentYear - age;
+    
+    dekhaw("You were born around:");
+    dekhaw(birthYear);
+    
+    // Age category
+    jodi (age < 18) {
+        dekhaw("Category: Minor");
+    } noyto (age < 60) {
+        dekhaw("Category: Adult");
+    } othoba {
+        dekhaw("Category: Senior");
+    }
+}

@@ -1,0 +1,28 @@
+// Simple User Input Demo
+// This program shows how to use nao() to get input from users
+
+main function {
+    // Declare variables
+    dhoro name_length;
+    dhoro favorite_number;
+    
+    // Get user's name length
+    dekhaw("How many letters in your name?");
+    nao(name_length);
+    
+    // Get user's favorite number
+    dekhaw("What is your favorite number?");
+    nao(favorite_number);
+    
+    // Display the inputs
+    dekhaw("Your name has this many letters:");
+    dekhaw(name_length);
+    
+    dekhaw("Your favorite number is:");
+    dekhaw(favorite_number);
+    
+    // Do some calculation
+    dhoro sum = name_length + favorite_number;
+    dekhaw("The sum of both is:");
+    dekhaw(sum);
+}

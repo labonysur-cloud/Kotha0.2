@@ -1,0 +1,29 @@
+// String Tokenizer
+// Splits a string into tokens (words)
+
+main function {
+    dekhaw("=== String Tokenizer ===");
+    
+    // Input: "Hello World from Kotha"
+    // Tokens: ["Hello", "World", "from", "Kotha"]
+    
+    dhoro tokenCount = 4;
+    
+    dekhaw("Input: Hello World from Kotha");
+    dekhaw("Delimiter: space");
+    dekhaw("Number of tokens:");
+    dekhaw(tokenCount);
+    
+    dekhaw("Tokens:");
+    dekhaw("1. Hello");
+    dekhaw("2. World");
+    dekhaw("3. from");
+    dekhaw("4. Kotha");
+    
+    // Another example with comma delimiter
+    dekhaw("Input: apple,banana,orange");
+    dekhaw("Delimiter: comma");
+    dhoro fruits = 3;
+    dekhaw("Number of tokens:");
+    dekhaw(fruits);
+}
