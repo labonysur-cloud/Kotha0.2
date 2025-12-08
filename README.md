@@ -102,6 +102,47 @@ To start the interactive shell:
 
 ---
 
+## 🏗 System Architecture
+
+The Kotha compiler follows a robust multi-stage pipeline, transforming Banglish source code into executable actions via a custom Virtual Machine.
+
+<div align="center">
+  <img src="assets/system_architecture.png" alt="Kotha System Architecture" width="800" style="border-radius: 10px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);" />
+</div>
+
+**Pipeline Flow:**
+1.  **Lexer/Parser**: Tokenizes Banglish code and builds an AST.
+2.  **IR Generator**: Converts the AST into 3-Address Code (Intermediate Representation).
+3.  **Optimizer**: Optimizes the IR for better performance.
+4.  **Code Generator**: Translates IR into Bytecode for the VM.
+5.  **Virtual Machine**: Executes the bytecode, managing stack and memory.
+
+---
+
+## 📂 Project Structure
+
+```bash
+Kotha0.2/
+├── assets/                 # Images for documentation
+├── kotha/                  # Core compiler source code
+│   ├── kotha               # Compiled executable
+│   ├── parser.y            # Bison parser grammar
+│   ├── lexer.l             # Flex lexer definitions
+│   ├── vm.c                # Virtual Machine implementation
+│   ├── ir.c                # Intermediate Representation generation
+│   ├── codegen_vm.c        # Bytecode generation
+│   └── *_lib.c             # Standard libraries (math, string, file, array)
+├── kotha-ide/              # Web-based IDE
+│   ├── examples/           # Sample Kotha programs
+│   ├── public/             # Frontend assets (HTML, CSS, JS)
+│   └── server.py           # Backend server (Python)
+├── PROJECT_REPORT.md       # Detailed technical documentation
+├── README.md               # Main documentation
+└── run_kotha.sh            # Helper script to execute programs
+```
+
+---
+
 ## 📝 Examples
 
 Here is a glimpse of working Kotha code:
