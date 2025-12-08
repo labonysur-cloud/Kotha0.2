@@ -6,7 +6,7 @@
 
   # 🇧🇩 Kotha (কথা) Programming Language
   
-  **A Powerful "Banglish" Programming Language Built for the Future**
+  **A Powerful "Banglish" Programming Language.**
   <br/>
   
   [![Build Status](https://img.shields.io/badge/build-passing-brightgreen)](https://github.com/labonysur-cloud/Kotha0.2)
@@ -22,9 +22,9 @@
 
 ## 🚀 Introduction
 
-**Kotha** is a unique programming language designed to bridge the gap between Bengali culture and modern computer science. By using "Banglish" (Bengali words written in English script) keywords, it makes coding more accessible and fun for Bengali speakers, while retaining the power of C-style languages.
+**Kotha** is a unique programming language designed to bridge the gap between Bengali culture and modern computer science. By using "Banglish" (Bengali words written in English script) keywords, it makes coding more accessible, while retaining the power of C-style languages.
 
-Whether you are building simple scripts, developing 2D games, or training Machine Learning models, Kotha has the tools you need.
+It features a custom compiler, a high-performance register-based Virtual Machine (VM), and a rich set of standard libraries.
 
 <div align="center">
   <h3>✨ The Kotha IDE ✨</h3>
@@ -33,32 +33,27 @@ Whether you are building simple scripts, developing 2D games, or training Machin
 
 ---
 
-## 🌟 Features
+## 🌟 Supported Features
 
-Kotha 0.2 is packed with advanced features:
+Kotha 0.2 currently supports the following fully functional features:
 
 ### 🛠 Core Language
-- **Banglish Syntax**: Write code using familiar words like `dhoro` (let), `dekhaw` (print), `jodi` (if).
-- **Strongly Typed**: Robust type system with integers, floats, and strings.
-- **Virtual Machine**: compiled to bytecode and executed on a high-performance VM.
+- **Banglish Syntax**: Familiar keywords like `dhoro` (let), `dekhaw` (print), `jodi` (if), `nabor` (else), `jotokhon` (while).
+- **Data Types**: Support for Integers, Floats, Strings, and Booleans.
+- **Control Flow**: `if-else` conditionals and `while` loops.
+- **Functions**: Define and call functions with arguments and return values.
+- **Virtual Machine**: Code is compiled to bytecode and executed on a custom high-performance VM.
 
-### 🎮 Game Development
-- **Built-in Game Engine**: Create 2D games with ease.
-- **Example Games**: Includes implementations of *Pong*, *Snake*, and *Tic-Tac-Toe*.
-- **Graphics Support**: Simple graphics primitives for drawing and animation.
+### 📚 Standard Library
+- **String Library**: String manipulation functions like `length`, `concatenate`, `reverse`, etc.
+- **Math Library**: Common mathematical functions including `sin`, `cos`, `power`, `sqrt`.
+- **File I/O**: Read from and write to files directly from Kotha.
+- **Array Support**: Create and manipulate arrays.
 
-### 🤖 Machine Learning & AI
-- **ML Bridge**: Integrated support for Machine Learning tasks.
-- **Ready-to-Run Examples**:
-  - CNN Classifier
-  - K-Means Clustering
-  - YOLO Object Detection
-  - RNN/LSTM networks
-
-### 💻 Developer Experience
-- **Kotha IDE**: A web-based IDE with syntax highlighting, file management, and instant execution.
-- **REPL**: Interactive shell for quick testing.
-- **Standard Library**: Rich set of libraries for String manipulation, Math, and File I/O.
+### 💻 Development Tools
+- **Kotha IDE**: A web-based Integrated Development Environment with syntax highlighting and file management.
+- **REPL**: interactive Read-Eval-Print Loop for quick coding sessions.
+- **CLI**: Command-line interface for compiling and running scripts.
 
 ---
 
@@ -98,11 +93,18 @@ You can also compile and run Kotha files directly from the terminal:
 ./run_kotha.sh your_program.kotha
 ```
 
+### Interactive REPL
+To start the interactive shell:
+```bash
+./kotha/kotha
+```
+(Running without arguments starts the REPL)
+
 ---
 
 ## 📝 Examples
 
-Here is a glimpse of what Kotha code looks like:
+Here is a glimpse of working Kotha code:
 
 <details open>
 <summary><b>Hello World</b></summary>
@@ -115,34 +117,31 @@ main function {
 </details>
 
 <details>
-<summary><b>Variables & Loops</b></summary>
+<summary><b>Variables & Logic</b></summary>
 
 ```c
 main function {
-    // Declarations
-    dhoro count = 0;
+    dhoro a = 10;
+    dhoro b = 20;
     
-    // Loop
-    jotokhon (count < 5) {
-        dekhaw("Count is: ");
-        dekhaw(count);
-        count = count + 1;
+    jodi (a < b) {
+        dekhaw("B is larger");
+    } nabor {
+        dekhaw("A is larger");
     }
 }
 ```
 </details>
 
 <details>
-<summary><b>Machine Learning Demo (Snippet)</b></summary>
+<summary><b>String Manipulation</b></summary>
 
 ```c
-// Example of ML configuration in Kotha
-dhoro learning_rate = 0.01;
-dhoro epochs = 100;
-
-proshikkhon(data) {
-    // Training logic...
-    dekhaw("Training model...");
+main function {
+    dhoro name = "Kotha";
+    dekhaw("Length is: ");
+    // Simulated length check (using internal lib)
+    dekhaw(name); 
 }
 ```
 </details>
@@ -153,20 +152,19 @@ proshikkhon(data) {
 
 For more detailed information, check out the following resources included in the repository:
 
-- 📄 **[Project Report](PROJECT_REPORT.md)**: Comprehensive architectural overview.
-- 🎮 **Game Dev Guide**: Learn how to build games in Kotha.
-- 🧠 **ML Guide**: Deep dive into the Machine Learning capabilities.
+- 📄 **[Project Report](PROJECT_REPORT.md)**: Architectural overview.
+- 📁 **[Examples](kotha-ide/examples/)**: A collection of working Kotha programs.
 
 ---
 
 ## 🤝 Contributing
 
-We welcome contributions to Kotha! Please feel free to submit a Pull Request.
+We welcome contributions! Please feel free to submit a Pull Request.
 
 1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
+2. Create your Feature Branch
+3. Commit your Changes
+4. Push to the Branch
 5. Open a Pull Request
 
 ---
