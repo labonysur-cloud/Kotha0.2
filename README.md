@@ -172,7 +172,7 @@ We welcome contributions to Kotha! Please feel free to submit a Pull Request.
 ---
 
 <div align="center">
-  Developed with ❤️ by <b>AUPURBA SARKER</b>
+  Developed with ❤️ by <b>Labony Sur</b>
   <br/>
   <i>Empowering coders in their native tongue.</i>
 </div>
