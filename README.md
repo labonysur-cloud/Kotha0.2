@@ -1,6 +1,6 @@
 <div align="center">
 
-  <img src="assets/header_image_1.png" alt="Kotha Logo" width="200" />
+  <img src="assets/kotha_logo_final.png" alt="Kotha Logo" width="200" />
   <br/>
   <br/>
 
@@ -28,7 +28,7 @@ It features a custom compiler, a high-performance register-based Virtual Machine
 
 <div align="center">
   <h3>✨ The Kotha IDE ✨</h3>
-  <img src="assets/header_image_2.png" alt="Kotha IDE Screenshot" width="800" style="border-radius: 10px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);" />
+  <img src="assets/kotha_ide_screenshot.png" alt="Kotha IDE Screenshot" width="800" style="border-radius: 10px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);" />
 </div>
 
 ---
