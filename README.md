@@ -151,45 +151,79 @@ Kotha0.2/
 
 Here is a glimpse of working Kotha code:
 
-<details open>
-<summary><b>Hello World</b></summary>
-
-```c
+### ▼ Hello World
+```kotha
 main function {
     dekhaw("Hello, Kotha World!");
 }
 ```
-</details>
 
-<details>
-<summary><b>Variables & Logic</b></summary>
-
-```c
+### ▼ Variables & Type Casting
+```kotha
 main function {
-    dhoro a = 10;
-    dhoro b = 20;
+    // C-style multiple declarations
+    purno x = 42, y = 10, z;
+    doshomik pi = 3.14;
+    
+    // Type casting
+    bornona num_str = purno_to_bornona(x);
+    doshomik float_x = purno_to_doshomik(x);
+    
+    // String concatenation with automatic type conversion
+    dekhaw("Value of x: " + x);
+    dekhaw("Type of x: " + typeof(x));
+    dekhaw("Pi value: " + pi);
+}
+```
+
+### ▼ Control Flow
+```kotha
+main function {
+    purno a = 10;
+    purno b = 20;
     
     jodi (a < b) {
         dekhaw("B is larger");
-    } nabor {
+    } noyto {
         dekhaw("A is larger");
     }
 }
 ```
-</details>
 
-<details>
-<summary><b>String Manipulation</b></summary>
-
-```c
+### ▼ String Manipulation
+```kotha
 main function {
-    dhoro name = "Kotha";
-    dekhaw("Length is: ");
-    // Simulated length check (using internal lib)
-    dekhaw(name); 
+    bornona name = "Kotha";
+    purno length = kotha_strlen(name);
+    
+    dekhaw("Language: " + name);
+    dekhaw("Length: " + length);
 }
 ```
-</details>
+
+### ▼ Loops
+```kotha
+main function {
+    purno i = 0;
+    
+    jotokkhon (i < 5) {
+        dekhaw("Count: " + i);
+        i = i + 1;
+    }
+}
+```
+
+### ▼ Functions
+```kotha
+add kaj (purno a, purno b) {
+    ferot a + b;
+}
+
+main function {
+    purno result = add(10, 20);
+    dekhaw("Sum: " + result);
+}
+```
 
 ---
 
