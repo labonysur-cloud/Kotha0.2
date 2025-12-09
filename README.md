@@ -173,8 +173,30 @@ Complete list of all Kotha keywords organized by category:
 
 ## 📦 Installation
 
-To get started with Kotha, clone the repository and build the compiler:
+### Prerequisites
 
+**For macOS/Linux:**
+- GCC or Clang compiler
+- Make
+- Flex (lexer generator)
+- Bison (parser generator)
+- Python 3.x (for IDE)
+
+**For Windows:**
+- **Option 1: WSL (Recommended)**
+  - Install [Windows Subsystem for Linux (WSL)](https://docs.microsoft.com/en-us/windows/wsl/install)
+  - Follow the macOS/Linux instructions below inside WSL
+  
+- **Option 2: MinGW/MSYS2**
+  - Install [MSYS2](https://www.msys2.org/)
+  - Install required packages:
+    ```bash
+    pacman -S mingw-w64-x86_64-gcc make flex bison python3
+    ```
+
+### Building from Source
+
+**macOS/Linux/WSL:**
 ```bash
 # Clone the repository
 git clone https://github.com/labonysur-cloud/Kotha0.2.git
@@ -183,36 +205,102 @@ git clone https://github.com/labonysur-cloud/Kotha0.2.git
 cd Kotha0.2
 
 # Build the compiler and tools
+cd kotha
 make
 ```
+
+**Windows (MinGW/MSYS2):**
+```bash
+# Clone the repository
+git clone https://github.com/labonysur-cloud/Kotha0.2.git
+
+# Navigate to the project directory
+cd Kotha0.2/kotha
+
+# Build using MinGW Make
+mingw32-make
+```
+
+> **Note:** The compiled `kotha` executable will be created in the `kotha/` directory.
 
 ---
 
 ## 🖥 Usage
 
 ### Running the IDE
-Experience Kotha through our modern web-based IDE:
 
+**macOS/Linux/WSL:**
 ```bash
 # Start the IDE server
+cd kotha-ide
+python3 server.py
+
+# Or use the helper script
 ./start_ide.sh
 ```
+
+**Windows (MinGW/MSYS2):**
+```bash
+# Navigate to IDE directory
+cd kotha-ide
+
+# Start the server
+python server.py
+```
+
 Then open your browser at `http://localhost:8081`.
 
 ### Command Line
-You can also compile and run Kotha files directly from the terminal:
 
+**macOS/Linux/WSL:**
 ```bash
-# Run a Kotha program
+# Run a Kotha program directly
+./kotha/kotha your_program.kotha
+
+# Or use the helper script
 ./run_kotha.sh your_program.kotha
 ```
 
-### Interactive REPL
-To start the interactive shell:
+**Windows (MinGW/MSYS2):**
 ```bash
+# Run a Kotha program
+./kotha/kotha.exe your_program.kotha
+
+# Or if in the kotha directory
+./kotha your_program.kotha
+```
+
+### Interactive REPL
+
+**macOS/Linux/WSL:**
+```bash
+# Start the REPL
 ./kotha/kotha
 ```
-(Running without arguments starts the REPL)
+
+**Windows (MinGW/MSYS2):**
+```bash
+# Start the REPL
+./kotha/kotha.exe
+```
+
+> **Tip:** Running without arguments starts the interactive REPL mode.
+
+### Platform-Specific Notes
+
+**Windows Users:**
+- If using WSL, you get the full Linux experience with better compatibility
+- MinGW/MSYS2 works but may require adjusting file paths in scripts
+- The IDE server requires Python 3.x - ensure it's in your PATH
+- Use forward slashes (`/`) in file paths, not backslashes (`\`)
+
+**macOS Users:**
+- Xcode Command Line Tools include GCC/Clang
+- Install Homebrew for easy package management: `brew install flex bison`
+
+**Linux Users:**
+- Install build tools: `sudo apt install build-essential flex bison` (Debian/Ubuntu)
+- Or: `sudo yum install gcc make flex bison` (RHEL/CentOS)
 
 ---
 
