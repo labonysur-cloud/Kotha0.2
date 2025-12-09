@@ -215,7 +215,7 @@ We welcome contributions! Please feel free to submit a Pull Request.
 ---
 
 <div align="center">
-  Developed with  by <b>Labony Sur</b>
+  Developed by <b>Labony Sur</b>
   <br/>
   <i>Empowering coders in their native tongue.</i>
 </div>
