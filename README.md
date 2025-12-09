@@ -61,6 +61,116 @@ Kotha 0.2 currently supports the following fully functional features:
 
 ---
 
+## 📚 Keyword Reference
+
+Complete list of all Kotha keywords organized by category:
+
+### Data Types
+| Keyword | English | Description | Example |
+|---------|---------|-------------|---------|
+| `purno` | Integer | Whole numbers | `purno age = 25;` |
+| `doshomik` | Float | Decimal numbers | `doshomik pi = 3.14;` |
+| `bornona` | String | Text/characters | `bornona name = "Kotha";` |
+| `sotyo_mittha` | Boolean | True/False values | `sotyo_mittha flag = sotti;` |
+| `sthir` | Constant | Immutable value | `sthir purno MAX = 100;` |
+
+### Boolean Literals
+| Keyword | English | Description |
+|---------|---------|-------------|
+| `sotti` | True | Boolean true value |
+| `mittha` | False | Boolean false value |
+
+### Control Flow
+| Keyword | English | Description | Example |
+|---------|---------|-------------|---------|
+| `jodi` | If | Conditional statement | `jodi (x > 0) { ... }` |
+| `noyto` | Else | Alternative condition | `noyto { ... }` |
+| `othoba` | Else If | Chained condition | `othoba (x < 0) { ... }` |
+| `jotokkhon` | While | Loop while condition is true | `jotokkhon (i < 10) { ... }` |
+| `cholbe` | For | For loop | `cholbe (i theke 0 porjonto 10) { ... }` |
+| `theke` | From | Loop start value | Used with `cholbe` |
+| `porjonto` | To | Loop end value | Used with `cholbe` |
+| `paltaw` | Switch | Switch statement | `paltaw (x) { ... }` |
+| `holo` | Case | Switch case | `holo 1: { ... }` |
+| `ses` | Break | Exit loop/switch | `ses;` |
+
+### Functions
+| Keyword | English | Description | Example |
+|---------|---------|-------------|---------|
+| `kaj` | Function | Define a function | `add kaj (purno a, purno b) { ... }` |
+| `ferot` | Return | Return value from function | `ferot a + b;` |
+| `void` | Void | Function with no return value | `print kaj void () { ... }` |
+| `main function` | Main | Program entry point | `main function { ... }` |
+
+### Input/Output
+| Keyword | English | Description | Example |
+|---------|---------|-------------|---------|
+| `dekhaw` | Print | Output to console | `dekhaw("Hello");` |
+| `nao` | Input | Read user input | `nao(x);` |
+
+### Type Operations
+| Keyword | English | Description | Example |
+|---------|---------|-------------|---------|
+| `typeof` | Type Of | Get variable type | `typeof(x)` returns `"purno"` |
+
+### Type Conversion Functions
+| Function | Description | Example |
+|----------|-------------|---------|
+| `purno_to_doshomik()` | Int → Float | `purno_to_doshomik(42)` → `42.0` |
+| `purno_to_bornona()` | Int → String | `purno_to_bornona(42)` → `"42"` |
+| `purno_to_sotyo_mittha()` | Int → Boolean | `purno_to_sotyo_mittha(1)` → `sotti` |
+| `doshomik_to_purno()` | Float → Int | `doshomik_to_purno(3.14)` → `3` |
+| `doshomik_to_bornona()` | Float → String | `doshomik_to_bornona(3.14)` → `"3.14"` |
+| `doshomik_to_sotyo_mittha()` | Float → Boolean | `doshomik_to_sotyo_mittha(0.0)` → `mittha` |
+| `bornona_to_purno()` | String → Int | `bornona_to_purno("42")` → `42` |
+| `bornona_to_doshomik()` | String → Float | `bornona_to_doshomik("3.14")` → `3.14` |
+| `bornona_to_sotyo_mittha()` | String → Boolean | `bornona_to_sotyo_mittha("")` → `mittha` |
+| `sotyo_mittha_to_purno()` | Boolean → Int | `sotyo_mittha_to_purno(sotti)` → `1` |
+| `sotyo_mittha_to_doshomik()` | Boolean → Float | `sotyo_mittha_to_doshomik(sotti)` → `1.0` |
+| `sotyo_mittha_to_bornona()` | Boolean → String | `sotyo_mittha_to_bornona(sotti)` → `"sotti"` |
+
+### Data Structures
+| Keyword | English | Description | Example |
+|---------|---------|-------------|---------|
+| `talika` | Array | Array/List | `purno talika arr = new talika[10];` |
+| `new` | New | Create new object/array | `new talika[size]` |
+
+### Utility
+| Keyword | English | Description | Example |
+|---------|---------|-------------|---------|
+| `random` | Random | Generate random number | `purno r = random();` |
+| `porishkar` | Clear | Clear screen | `porishkar();` |
+| `wait` | Wait | Pause execution | `wait(1000);` |
+| `songjukto` | Concatenate | String concatenation | `songjukto(str1, str2)` |
+
+### Exception Handling
+| Keyword | English | Description | Example |
+|---------|---------|-------------|---------|
+| `try` | Try | Try block | `try { ... }` |
+| `catch` | Catch | Catch exceptions | `catch (error) { ... }` |
+| `finally` | Finally | Finally block | `finally { ... }` |
+| `throw` | Throw | Throw exception | `throw error;` |
+
+### Operators
+| Operator | Description | Example |
+|----------|-------------|---------|
+| `+` | Addition / String concatenation | `x + y` or `"Hello " + name` |
+| `-` | Subtraction | `x - y` |
+| `*` | Multiplication | `x * y` |
+| `/` | Division | `x / y` |
+| `%` | Modulo | `x % y` |
+| `==` | Equal to | `x == y` |
+| `!=` | Not equal to | `x != y` |
+| `>` | Greater than | `x > y` |
+| `<` | Less than | `x < y` |
+| `>=` | Greater than or equal | `x >= y` |
+| `<=` | Less than or equal | `x <= y` |
+| `&&` | Logical AND | `x && y` |
+| `||` | Logical OR | `x || y` |
+| `!` | Logical NOT | `!x` |
+
+---
+
 ## 📦 Installation
 
 To get started with Kotha, clone the repository and build the compiler:
