@@ -1,5 +1,0 @@
-main function {
-    sotyo_mittha flag;
-    nao(flag);
-    dekhaw(flag);
-}

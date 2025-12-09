@@ -1,4 +1,0 @@
-main function {
-    purno x = 42;
-    dekhaw("Answer: " + x);
-}

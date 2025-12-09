@@ -1,5 +1,0 @@
-// Test REPL functionality
-dhoro x = 10
-dekhaw(x)
-:vars
-:quit

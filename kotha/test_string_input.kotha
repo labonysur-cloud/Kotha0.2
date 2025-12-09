@@ -1,5 +1,0 @@
-main function {
-    bornona name;
-    nao(name);
-    dekhaw(name);
-}

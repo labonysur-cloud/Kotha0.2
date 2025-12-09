@@ -1,9 +1,0 @@
-// Test simple function call
-kaj add(a, b) {
-    ferot a + b;
-}
-
-main function {
-    purno result = add(5, 3);
-    dekhaw(result);
-}

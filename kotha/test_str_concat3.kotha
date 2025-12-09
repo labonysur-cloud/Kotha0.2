@@ -1,4 +1,0 @@
-main function {
-    purno x = 10, y = 20, z = 30;
-    dekhaw("Sum: " + (x + y + z));
-}
