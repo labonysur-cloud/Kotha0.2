@@ -5,7 +5,7 @@ main function {
     dekhaw("=== String Length Counter ===");
     
     // String to measure
-    bornona text = "Hello Kotha";
+    purno text = "Hello Kotha";
     
     // Count length (simulated - will need string library)
     purno length = 11;  // strlen equivalent
@@ -16,7 +16,7 @@ main function {
     dekhaw(length);
     
     // Another example
-    bornona name = "Bangladesh";
+    purno name = "Bangladesh";
     purno nameLen = 10;
     
     dekhaw("Country:");

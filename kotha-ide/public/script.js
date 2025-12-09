@@ -2,14 +2,24 @@
 
 // Kotha keywords for syntax highlighting
 const kothaKeywords = [
-    'dhoro', 'sthir', 'kaj', 'ferot', 'jodi', 'noyto', 'othoba',
-    'cholbe', 'jotokkhon', 'theke', 'porjonto', 'dekhaw', 'nao',
+    // Type keywords
+    'purno', 'doshomik', 'bornona', 'sotyo_mittha', 'sthir',
+    // Boolean literals
+    'sotti', 'mittha',
+    // Control flow
+    'kaj', 'ferot', 'jodi', 'noyto', 'othoba',
+    'cholbe', 'jotokkhon', 'theke', 'porjonto',
+    // I/O
+    'dekhaw', 'nao',
+    // Other keywords
     'talika', 'new', 'try', 'catch', 'finally', 'throw',
     'model', 'shikha', 'bhabisyot', 'drishti', 'dhata', 'chhobi', 'rakhaw', 'load',
     'khela', 'sprite', 'chitro', 'random', 'porishkar', 'wait',
     'function', 'main', 'void', 'include', 'songjukto',
+    // String library
     'kotha_strlen', 'kotha_strcat', 'kotha_strcmp', 'kotha_strcpy',
     'kotha_substr', 'kotha_toupper', 'kotha_tolower', 'kotha_reverse',
+    // File I/O
     'kotha_fopen', 'kotha_fclose', 'kotha_fread', 'kotha_fwrite',
     'kotha_fexists', 'kotha_fsize', 'kotha_fdelete', 'kotha_frename'
 ];
@@ -713,8 +723,15 @@ KEYBOARD SHORTCUTS:
 • Ctrl+H            - Replace text
 
 KOTHA LANGUAGE BASICS:
-• Variables:        dhoro x = 10;
-• Constants:        sthir PI = 3.14;
+
+DATA TYPES:
+• Integer:          purno x = 10;
+• Float:            doshomik pi = 3.14;
+• String:           bornona name = "Kotha";
+• Boolean:          sotyo_mittha flag = sotti;
+• Constants:        sthir purno MAX = 100;
+
+CONTROL FLOW:
 • Print:            dekhaw("Hello");
 • Input:            nao(variable);
 • If:               jodi (condition) { }
@@ -722,8 +739,12 @@ KOTHA LANGUAGE BASICS:
 • Else If:          noyto (condition) { }
 • While:            jotokkhon (condition) { }
 • For:              cholbe (i theke 1 porjonto 10) { }
+
+FUNCTIONS:
 • Function:         kaj myFunc() { }
 • Return:           ferot value;
+
+OTHER:
 • Arrays:           talika arr[10];
 • Random:           random(1, 100)
 • Clear Screen:     porishkar();

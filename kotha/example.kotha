@@ -1,29 +1,12 @@
-// Example Kotha Program
-// Demonstrates: functions, loops, conditionals
-
-kaj factorial(n) {
-    jodi (n <= 1) {
-        ferot 1;
-    } othoba {
-        ferot n * factorial(n - 1);
-    }
-}
-
 main function {
-    dekhaw("=== Kotha Compiler Demo ===");
+    purno x = 10;
+    purno y = 20;
+    purno sum = x + y;
     
-    // Test factorial
-    cholbe (i theke 1 porjonto 5) {
-        dhoro result = factorial(i);
-        dekhaw(result);
-    }
+    dekhaw("Sum:");
+    dekhaw(sum);
     
-    // Test loop with increment
-    dhoro count = 0;
-    jotokkhon (count < 3) {
-        dekhaw(count);
-        count++;
-    }
-    
-    dekhaw("=== Demo Complete ===");
+    doshomik pi = 3.14159;
+    bornona greeting = "Hello Kotha!";
+    sotyo_mittha flag = mittha;
 }

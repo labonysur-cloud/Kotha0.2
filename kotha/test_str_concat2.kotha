@@ -1,0 +1,4 @@
+main function {
+    doshomik pi = 3.14159;
+    dekhaw("Pi = " + pi);
+}

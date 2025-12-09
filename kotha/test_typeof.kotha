@@ -1,0 +1,10 @@
+main function {
+    // Test typeof()
+    purno x = 10;
+    doshomik y = 3.14;
+    bornona name = "Kotha";
+    
+    dekhaw("x type: " + typeof(x));
+    dekhaw("y type: " + typeof(y));
+    dekhaw("name type: " + typeof(name));
+}

@@ -50,11 +50,15 @@ int generate_c = 1; // Default to generating C code
 /* Keywords */
 %token INCLUDE
 %token JODI OTHOBA NOYTO PALTAW HOLO SES CHOLBE THEKE PORJONTO JOTOKKHON FEROT
-%token DHORO STHIR TALIKA NEW DEKHAW NAO RANDOM PORISHKAR WAIT SONGJUKTO KAJ VOID
-%token MAIN
+%token TYPE_INT_KW TYPE_FLOAT_KW TYPE_STRING_KW TYPE_BOOL_KW CONST
+%token TALIKA NEW DEKHAW NAO RANDOM PORISHKAR WAIT SONGJUKTO KAJ VOID
+%token MAIN TYPEOF
 
 /* Exception handling tokens */
 %token TRY CATCH FINALLY THROW
+
+/* Boolean literals */
+%token <ival> TRUE FALSE
 
 /* Constants and Identifiers */
 %token <sval> ID STR
@@ -84,14 +88,18 @@ int generate_c = 1; // Default to generating C code
 
 %type <sval> arguments arg_list
 %type <node> expression statements statement block
-%type <node> declaration string_declaration assignment compound_assignment
+%type <node> declaration assignment compound_assignment
 %type <node> if_statement if_head while_statement for_statement print_statement
-%type <node> try_statement throw_statement
+%type <node> try_statement throw_statement input_statement
 %type <node> return_statement function_call_stmt function_call
 %type <node> array_decl array_2d_decl array_assign array_2d_assign
 %type <node> increment_stmt decrement_stmt
+%type <sval> var_declarator_list var_declarator
 
 %{
+// Forward declarations
+VarType infer_type(ASTNode *node);
+
 // Helper to convert AST expression back to C string for transpilation
 char* ast_to_c(ASTNode *node) {
     if (!node) return strdup("");
@@ -100,12 +108,65 @@ char* ast_to_c(ASTNode *node) {
         sprintf(buf, "%d", node->ival);
         return strdup(buf);
     }
+    if (node->type == NODE_LITERAL_FLOAT) {
+        sprintf(buf, "%f", node->fval);
+        return strdup(buf);
+    }
     if (node->type == NODE_VAR_REF) return strdup(node->sval);
     if (node->type == NODE_LITERAL_STRING) return strdup(node->sval);
     if (node->type == NODE_FUNC_CALL) return strdup(node->sval);
     if (node->type == NODE_BIN_OP) {
         char *l = ast_to_c(node->left);
         char *r = ast_to_c(node->right);
+        
+        // Check if this is string concatenation
+        if (node->op == PLUS) {
+            VarType left_type = infer_type(node->left);
+            VarType right_type = infer_type(node->right);
+            
+            // If either side is a string, do string concatenation
+            if (left_type == TYPE_STRING || right_type == TYPE_STRING) {
+                char *res = malloc(1024);
+                
+                // Build concatenation expression
+                strcpy(res, "(kotha_str_reset(), ");
+                
+                // Add left operand
+                if (left_type == TYPE_STRING) {
+                    strcat(res, "kotha_str_concat_str(");
+                    strcat(res, l);
+                    strcat(res, "), ");
+                } else if (left_type == TYPE_INT || left_type == TYPE_BOOL) {
+                    strcat(res, "kotha_str_concat_int(");
+                    strcat(res, l);
+                    strcat(res, "), ");
+                } else if (left_type == TYPE_FLOAT) {
+                    strcat(res, "kotha_str_concat_float(");
+                    strcat(res, l);
+                    strcat(res, "), ");
+                }
+                
+                // Add right operand
+                if (right_type == TYPE_STRING) {
+                    strcat(res, "kotha_str_concat_str(");
+                    strcat(res, r);
+                    strcat(res, "))");
+                } else if (right_type == TYPE_INT || right_type == TYPE_BOOL) {
+                    strcat(res, "kotha_str_concat_int(");
+                    strcat(res, r);
+                    strcat(res, "))");
+                } else if (right_type == TYPE_FLOAT) {
+                    strcat(res, "kotha_str_concat_float(");
+                    strcat(res, r);
+                    strcat(res, "))");
+                }
+                
+                free(l); free(r);
+                return res;
+            }
+        }
+        
+        // Regular arithmetic operation
         char op_str[4] = "+";
         switch(node->op) {
             case PLUS: strcpy(op_str, "+"); break;
@@ -186,6 +247,22 @@ VarType infer_type(ASTNode *node) {
         }
         
         case NODE_FUNC_CALL:
+            // Special handling for typeof() - it returns a string
+            if (node->sval && strstr(node->sval, "kotha_typeof_") != NULL) {
+                return TYPE_STRING;
+            }
+            // Type conversion functions
+            if (node->sval) {
+                if (strstr(node->sval, "_to_bornona") != NULL) {
+                    return TYPE_STRING;
+                }
+                if (strstr(node->sval, "_to_doshomik") != NULL) {
+                    return TYPE_FLOAT;
+                }
+                if (strstr(node->sval, "_to_purno") != NULL || strstr(node->sval, "_to_sotyo_mittha") != NULL) {
+                    return TYPE_INT;
+                }
+            }
             // For now, assume functions return int
             // TODO: Add function return type tracking
             return TYPE_INT;
@@ -203,6 +280,13 @@ int types_compatible(VarType t1, VarType t2, int op) {
     
     // Arithmetic operations
     if (op == PLUS || op == MINUS || op == MULT || op == DIV || op == MOD) {
+        // Special case: PLUS operator can do string concatenation
+        if (op == PLUS) {
+            // string + anything = OK (string concatenation)
+            if (t1 == TYPE_STRING || t2 == TYPE_STRING) return 1;
+        }
+        
+        // Regular arithmetic
         // int + int = OK
         if (t1 == TYPE_INT && t2 == TYPE_INT) return 1;
         // int + float = OK (promote to float)
@@ -210,8 +294,9 @@ int types_compatible(VarType t1, VarType t2, int op) {
             (t1 == TYPE_FLOAT && t2 == TYPE_INT)) return 1;
         // float + float = OK
         if (t1 == TYPE_FLOAT && t2 == TYPE_FLOAT) return 1;
-        // string + anything = ERROR
-        if (t1 == TYPE_STRING || t2 == TYPE_STRING) return 0;
+        
+        // For non-PLUS operators, string is not allowed
+        if (op != PLUS && (t1 == TYPE_STRING || t2 == TYPE_STRING)) return 0;
         return 0;
     }
     
@@ -292,6 +377,80 @@ program:
             printf("#else\n");
             printf("#include <unistd.h>\n");
             printf("#endif\n\n");
+            
+            // Add string concatenation helper functions
+            printf("// String concatenation helpers\n");
+            printf("static char kotha_str_buffer[4096];\n");
+            printf("static int kotha_str_offset = 0;\n\n");
+            
+            printf("char* kotha_str_reset() {\n");
+            printf("    kotha_str_offset = 0;\n");
+            printf("    kotha_str_buffer[0] = '\\0';\n");
+            printf("    return kotha_str_buffer;\n");
+            printf("}\n\n");
+            
+            printf("char* kotha_str_concat_str(const char* s) {\n");
+            printf("    int len = strlen(s);\n");
+            printf("    if (kotha_str_offset + len < 4096) {\n");
+            printf("        strcpy(kotha_str_buffer + kotha_str_offset, s);\n");
+            printf("        kotha_str_offset += len;\n");
+            printf("    }\n");
+            printf("    return kotha_str_buffer;\n");
+            printf("}\n\n");
+            
+            printf("char* kotha_str_concat_int(int val) {\n");
+            printf("    char temp[32];\n");
+            printf("    sprintf(temp, \"%%d\", val);\n");
+            printf("    return kotha_str_concat_str(temp);\n");
+            printf("}\n\n");
+            
+            printf("char* kotha_str_concat_float(float val) {\n");
+            printf("    char temp[32];\n");
+            printf("    sprintf(temp, \"%%g\", val);\n");
+            printf("    return kotha_str_concat_str(temp);\n");
+            printf("}\n\n");
+            
+            // Add type conversion functions
+            printf("// Type conversion functions\n");
+            
+            // purno (int) conversions
+            printf("float purno_to_doshomik(int val) { return (float)val; }\n");
+            printf("char* purno_to_bornona(int val) {\n");
+            printf("    static char buf[32];\n");
+            printf("    sprintf(buf, \"%%d\", val);\n");
+            printf("    return buf;\n");
+            printf("}\n");
+            printf("int purno_to_sotyo_mittha(int val) { return val != 0; }\n\n");
+            
+            // doshomik (float) conversions
+            printf("int doshomik_to_purno(float val) { return (int)val; }\n");
+            printf("char* doshomik_to_bornona(float val) {\n");
+            printf("    static char buf[32];\n");
+            printf("    sprintf(buf, \"%%g\", val);\n");
+            printf("    return buf;\n");
+            printf("}\n");
+            printf("int doshomik_to_sotyo_mittha(float val) { return val != 0.0; }\n\n");
+            
+            // bornona (string) conversions
+            printf("int bornona_to_purno(const char* str) { return atoi(str); }\n");
+            printf("float bornona_to_doshomik(const char* str) { return atof(str); }\n");
+            printf("int bornona_to_sotyo_mittha(const char* str) { return strlen(str) > 0; }\n\n");
+            
+            // sotyo_mittha (bool) conversions
+            printf("int sotyo_mittha_to_purno(int val) { return val; }\n");
+            printf("float sotyo_mittha_to_doshomik(int val) { return (float)val; }\n");
+            printf("char* sotyo_mittha_to_bornona(int val) {\n");
+            printf("    static char buf[8];\n");
+            printf("    sprintf(buf, \"%%s\", val ? \"sotti\" : \"mittha\");\n");
+            printf("    return buf;\n");
+            printf("}\n\n");
+            
+            // typeof() functions
+            printf("// typeof() helper functions\n");
+            printf("const char* kotha_typeof_purno() { return \"purno\"; }\n");
+            printf("const char* kotha_typeof_doshomik() { return \"doshomik\"; }\n");
+            printf("const char* kotha_typeof_bornona() { return \"bornona\"; }\n");
+            printf("const char* kotha_typeof_sotyo_mittha() { return \"sotyo_mittha\"; }\n\n");
         }
     }
     global_declarations
@@ -304,24 +463,85 @@ global_declarations:
     ;
 
 global_declaration:
-      STHIR ID ASSIGN expression SEMICOLON { 
-        if (generate_c) {
-            char *s = ast_to_c($4);
-            printf("const int %s = %s;\n", $2, s); 
-            free($2); free(s); 
-        }
-      }
-    | STHIR ID SEMICOLON { if (generate_c) { printf("const int %s;\n", $2); free($2); } }
-    | DHORO ID ASSIGN expression SEMICOLON { 
+      /* Integer declarations */
+      TYPE_INT_KW ID ASSIGN expression SEMICOLON { 
+        insert_symbol_typed($2, SYM_VAR, TYPE_INT);
         if (generate_c) {
             char *s = ast_to_c($4);
             printf("int %s = %s;\n", $2, s); 
             free($2); free(s); 
         }
       }
-    | DHORO ID SEMICOLON { if (generate_c) { printf("int %s;\n", $2); free($2); } }
-    | TALIKA ID LBRACKET INT RBRACKET SEMICOLON { if (generate_c) { printf("int %s[%d];\n", $2, $4); free($2); } }
-    | TALIKA ID LBRACKET INT RBRACKET LBRACKET INT RBRACKET SEMICOLON { if (generate_c) { printf("int %s[%d][%d];\n", $2, $4, $7); free($2); } }
+    | TYPE_INT_KW ID SEMICOLON { 
+        insert_symbol_typed($2, SYM_VAR, TYPE_INT);
+        if (generate_c) { printf("int %s;\n", $2); free($2); } 
+      }
+    
+      /* Float declarations */
+    | TYPE_FLOAT_KW ID ASSIGN expression SEMICOLON { 
+        insert_symbol_typed($2, SYM_VAR, TYPE_FLOAT);
+        if (generate_c) {
+            char *s = ast_to_c($4);
+            printf("float %s = %s;\n", $2, s); 
+            free($2); free(s); 
+        }
+      }
+    | TYPE_FLOAT_KW ID SEMICOLON { 
+        insert_symbol_typed($2, SYM_VAR, TYPE_FLOAT);
+        if (generate_c) { printf("float %s;\n", $2); free($2); } 
+      }
+    
+      /* String declarations */
+    | TYPE_STRING_KW ID ASSIGN STR SEMICOLON { 
+        insert_symbol_typed($2, SYM_VAR, TYPE_STRING);
+        if (generate_c) { printf("char %s[256] = %s;\n", $2, $4); free($2); free($4); } 
+      }
+    | TYPE_STRING_KW ID SEMICOLON { 
+        insert_symbol_typed($2, SYM_VAR, TYPE_STRING);
+        if (generate_c) { printf("char %s[256];\n", $2); free($2); } 
+      }
+    
+      /* Boolean declarations */
+    | TYPE_BOOL_KW ID ASSIGN expression SEMICOLON { 
+        insert_symbol_typed($2, SYM_VAR, TYPE_BOOL);
+        if (generate_c) {
+            char *s = ast_to_c($4);
+            printf("int %s = %s;\n", $2, s); 
+            free($2); free(s); 
+        }
+      }
+    | TYPE_BOOL_KW ID SEMICOLON { 
+        insert_symbol_typed($2, SYM_VAR, TYPE_BOOL);
+        if (generate_c) { printf("int %s = 0;\n", $2); free($2); } 
+      }
+    
+      /* Const variants */
+    | CONST TYPE_INT_KW ID ASSIGN expression SEMICOLON { 
+        insert_symbol_typed($3, SYM_VAR, TYPE_INT);
+        if (generate_c) {
+            char *s = ast_to_c($5);
+            printf("const int %s = %s;\n", $3, s); 
+            free($3); free(s); 
+        }
+      }
+    | CONST TYPE_FLOAT_KW ID ASSIGN expression SEMICOLON { 
+        insert_symbol_typed($3, SYM_VAR, TYPE_FLOAT);
+        if (generate_c) {
+            char *s = ast_to_c($5);
+            printf("const float %s = %s;\n", $3, s); 
+            free($3); free(s); 
+        }
+      }
+    
+      /* Arrays */
+    | TALIKA ID LBRACKET INT RBRACKET SEMICOLON { 
+        insert_symbol_typed($2, SYM_VAR, TYPE_ARRAY_INT);
+        if (generate_c) { printf("int %s[%d];\n", $2, $4); free($2); } 
+      }
+    | TALIKA ID LBRACKET INT RBRACKET LBRACKET INT RBRACKET SEMICOLON { 
+        insert_symbol_typed($2, SYM_VAR, TYPE_ARRAY_INT);
+        if (generate_c) { printf("int %s[%d][%d];\n", $2, $4, $7); free($2); } 
+      }
     ;
 
 functions:
@@ -381,62 +601,192 @@ statement:
     | assignment { $$ = $1; }
     | return_statement { $$ = $1; }
     | function_call_stmt { $$ = $1; }
-    | input_statement { $$ = NULL; }
+    | input_statement { $$ = $1; }
     | clear_statement { $$ = NULL; }
     | wait_statement { $$ = NULL; }
     | array_decl { $$ = NULL; }
     | array_2d_decl { $$ = NULL; }
     | array_assign { $$ = NULL; }
     | array_2d_assign { $$ = NULL; }
-    | string_declaration { $$ = NULL; }
     | compound_assignment { $$ = NULL; }
     | increment_stmt { $$ = $1; }
     | decrement_stmt { $$ = $1; }
     | import_statement { $$ = NULL; }
     ;
 
-declaration:
-    DHORO ID ASSIGN expression SEMICOLON { 
-        $$ = create_node(NODE_VAR_DECL);
-        $$->sval = strdup($2);
-        $$->left = $4;
-        
-        // TYPE CHECKING: Infer type from expression
-        VarType expr_type = infer_type($4);
-        
-        // Check for type errors
-        if (expr_type == TYPE_STRING) {
-            char error_msg[256];
-            sprintf(error_msg, "Cannot assign string to integer variable '%s'", $2);
-            type_error(error_msg, yylineno);
-            // Still generate code but mark as error
-        } else if (expr_type == TYPE_ERROR) {
-            char error_msg[256];
-            sprintf(error_msg, "Type error in initialization of variable '%s'", $2);
-            type_error(error_msg, yylineno);
-        }
-        
-        // Store type in symbol table (INT for dhoro)
-        insert_symbol_typed($2, SYM_VAR, TYPE_INT);
-        
-        if (generate_c) {
-            char *expr_str = ast_to_c($4);
-            printf("    int %s = %s;\n", $2, expr_str);
-            free($2); free(expr_str);
-        }
+/* Variable declarator list - supports comma-separated declarations */
+var_declarator_list:
+    var_declarator { $$ = $1; }
+    | var_declarator_list COMMA var_declarator {
+        // Concatenate the declarators with comma
+        char *result = malloc(strlen($1) + strlen($3) + 3);
+        sprintf(result, "%s, %s", $1, $3);
+        free($1); free($3);
+        $$ = result;
     }
-    | DHORO ID SEMICOLON { 
+    ;
+
+var_declarator:
+    ID { $$ = strdup($1); free($1); }
+    | ID ASSIGN expression {
+        char *expr_str = ast_to_c($3);
+        char *result = malloc(strlen($1) + strlen(expr_str) + 4);
+        sprintf(result, "%s = %s", $1, expr_str);
+        free($1); free(expr_str);
+        $$ = result;
+    }
+    ;
+
+declaration:
+    /* Integer declarations */
+    TYPE_INT_KW var_declarator_list SEMICOLON { 
         $$ = create_node(NODE_VAR_DECL);
-        $$->sval = strdup($2);
-        $$->left = NULL;
-        
-        // Store type in symbol table (INT for dhoro)
-        insert_symbol_typed($2, SYM_VAR, TYPE_INT);
         
         if (generate_c) {
             printf("    int %s;\n", $2);
-            free($2);
         }
+        
+        // Parse the declarator list and insert symbols
+        char *decl_copy = strdup($2);
+        char *token = strtok(decl_copy, ",");
+        while (token != NULL) {
+            // Trim whitespace
+            while (*token == ' ') token++;
+            char *end = token + strlen(token) - 1;
+            while (end > token && *end == ' ') end--;
+            *(end + 1) = '\0';
+            
+            // Extract variable name (before '=' if present)
+            char *eq = strchr(token, '=');
+            if (eq) {
+                *eq = '\0';
+                end = eq - 1;
+                while (end > token && *end == ' ') end--;
+                *(end + 1) = '\0';
+            }
+            
+            insert_symbol_typed(token, SYM_VAR, TYPE_INT);
+            token = strtok(NULL, ",");
+        }
+        free(decl_copy);
+        free($2);
+    }
+    
+    /* Float declarations */
+    | TYPE_FLOAT_KW var_declarator_list SEMICOLON { 
+        $$ = create_node(NODE_VAR_DECL);
+        
+        if (generate_c) {
+            printf("    float %s;\n", $2);
+        }
+        
+        // Parse and insert symbols
+        char *decl_copy = strdup($2);
+        char *token = strtok(decl_copy, ",");
+        while (token != NULL) {
+            while (*token == ' ') token++;
+            char *end = token + strlen(token) - 1;
+            while (end > token && *end == ' ') end--;
+            *(end + 1) = '\0';
+            
+            char *eq = strchr(token, '=');
+            if (eq) {
+                *eq = '\0';
+                end = eq - 1;
+                while (end > token && *end == ' ') end--;
+                *(end + 1) = '\0';
+            }
+            
+            insert_symbol_typed(token, SYM_VAR, TYPE_FLOAT);
+            token = strtok(NULL, ",");
+        }
+        free(decl_copy);
+        free($2);
+    }
+    
+    /* String declarations */
+    | TYPE_STRING_KW var_declarator_list SEMICOLON { 
+        $$ = create_node(NODE_VAR_DECL);
+        
+        if (generate_c) {
+            // For strings, need to convert to char arrays
+            char *decl_copy = strdup($2);
+            char *token = strtok(decl_copy, ",");
+            int first = 1;
+            while (token != NULL) {
+                while (*token == ' ') token++;
+                if (!first) printf("    ");
+                
+                // Check if initialized
+                char *eq = strchr(token, '=');
+                if (eq) {
+                    *eq = '\0';
+                    char *var_name = token;
+                    char *init_val = eq + 1;
+                    while (*var_name == ' ') var_name++;
+                    while (*init_val == ' ') init_val++;
+                    
+                    char *end = var_name + strlen(var_name) - 1;
+                    while (end > var_name && *end == ' ') end--;
+                    *(end + 1) = '\0';
+                    
+                    // Check if init_val is a string literal (starts with ")
+                    if (init_val[0] == '"') {
+                        // String literal - can use direct initialization
+                        printf("char %s[256] = %s;\n", var_name, init_val);
+                    } else {
+                        // Function call or expression - need to use strcpy
+                        printf("char %s[256];\n", var_name);
+                        printf("    strcpy(%s, %s);\n", var_name, init_val);
+                    }
+                    insert_symbol_typed(var_name, SYM_VAR, TYPE_STRING);
+                } else {
+                    char *end = token + strlen(token) - 1;
+                    while (end > token && *end == ' ') end--;
+                    *(end + 1) = '\0';
+                    
+                    printf("char %s[256];\n", token);
+                    insert_symbol_typed(token, SYM_VAR, TYPE_STRING);
+                }
+                
+                token = strtok(NULL, ",");
+                first = 0;
+            }
+            free(decl_copy);
+        }
+        free($2);
+    }
+    
+    /* Boolean declarations */
+    | TYPE_BOOL_KW var_declarator_list SEMICOLON { 
+        $$ = create_node(NODE_VAR_DECL);
+        
+        if (generate_c) {
+            printf("    int %s;\n", $2);
+        }
+        
+        // Parse and insert symbols
+        char *decl_copy = strdup($2);
+        char *token = strtok(decl_copy, ",");
+        while (token != NULL) {
+            while (*token == ' ') token++;
+            char *end = token + strlen(token) - 1;
+            while (end > token && *end == ' ') end--;
+            *(end + 1) = '\0';
+            
+            char *eq = strchr(token, '=');
+            if (eq) {
+                *eq = '\0';
+                end = eq - 1;
+                while (end > token && *end == ' ') end--;
+                *(end + 1) = '\0';
+            }
+            
+            insert_symbol_typed(token, SYM_VAR, TYPE_BOOL);
+            token = strtok(NULL, ",");
+        }
+        free(decl_copy);
+        free($2);
     }
     ;
 
@@ -447,7 +797,31 @@ print_statement:
         
         if (generate_c) {
             char *expr_str = ast_to_c($3);
-            printf("    printf(\"%%d\\n\", %s);\n", expr_str);
+            
+            // Infer the type of the expression to use correct printf format
+            VarType expr_type = infer_type($3);
+            
+            // Check if this is a string concatenation result
+            // String concatenation returns a string, so check if expression contains kotha_str_
+            int is_string_concat = (strstr(expr_str, "kotha_str_") != NULL);
+            
+            if (is_string_concat || expr_type == TYPE_STRING) {
+                printf("    printf(\"%%s\\n\", %s);\n", expr_str);
+            } else {
+                switch (expr_type) {
+                    case TYPE_INT:
+                    case TYPE_BOOL:
+                        printf("    printf(\"%%d\\n\", %s);\n", expr_str);
+                        break;
+                    case TYPE_FLOAT:
+                        printf("    printf(\"%%f\\n\", %s);\n", expr_str);
+                        break;
+                    default:
+                        // Default to integer format
+                        printf("    printf(\"%%d\\n\", %s);\n", expr_str);
+                        break;
+                }
+            }
             free(expr_str);
         }
     }
@@ -485,10 +859,7 @@ while_statement:
     }
     ;
 
-string_declaration:
-      STHIR ID ASSIGN STR SEMICOLON { if (generate_c) { printf("    const char %s[256] = %s;\n", $2, $4); free($2); free($4); } }
-    | DHORO ID ASSIGN STR SEMICOLON { if (generate_c) { printf("    char %s[256] = %s;\n", $2, $4); free($2); free($4); } }
-    ;
+
 
 array_decl:
     TALIKA ID LBRACKET INT RBRACKET SEMICOLON { if (generate_c) { printf("    int %s[%d];\n", $2, $4); free($2); } }
@@ -621,7 +992,40 @@ decrement_stmt:
     ;
 
 input_statement:
-    NAO LPAREN ID RPAREN SEMICOLON { if (generate_c) { printf("    scanf(\"%%d\", &%s);\n", $3); free($3); } }
+    NAO LPAREN ID RPAREN SEMICOLON { 
+        // Create AST node for input
+        $$ = create_node(NODE_INPUT);
+        $$->sval = strdup($3);
+        
+        if (generate_c) {
+            // Check variable type to determine scanf format
+            VarType var_type = get_symbol_type($3);
+            switch (var_type) {
+                case TYPE_INT:
+                    // purno - integer type
+                    printf("    scanf(\"%%d\", &%s);\n", $3);
+                    break;
+                case TYPE_FLOAT:
+                    // doshomik - float type
+                    printf("    scanf(\"%%f\", &%s);\n", $3);
+                    break;
+                case TYPE_STRING:
+                    // bornona - string type (no & needed for arrays)
+                    printf("    scanf(\"%%s\", %s);\n", $3);
+                    break;
+                case TYPE_BOOL:
+                    // sotyo_mittha - boolean type (stored as int)
+                    printf("    scanf(\"%%d\", &%s);\n", $3);
+                    break;
+                default:
+                    // Unknown type - default to integer
+                    printf("    scanf(\"%%d\", &%s);\n", $3);
+                    break;
+            }
+        }
+        
+        free($3);
+    }
     ;
 
 clear_statement:
@@ -811,6 +1215,8 @@ case:
 expression:
       INT { $$ = create_int_node($1); }
     | FLOAT { $$ = create_float_node($1); }
+    | TRUE { $$ = create_int_node(1); }   /* Boolean true */
+    | FALSE { $$ = create_int_node(0); }  /* Boolean false */
     | ID { 
         // SEMANTIC CHECK: Variable must be declared
         if (!lookup_symbol($1)) {
@@ -845,6 +1251,33 @@ expression:
         $$->left = $2;
     }
     | LPAREN expression RPAREN { $$ = $2; }
+    | TYPEOF LPAREN expression RPAREN {
+        $$ = create_node(NODE_FUNC_CALL);
+        
+        // Determine the type of the expression
+        VarType expr_type = infer_type($3);
+        char *typeof_call;
+        
+        switch (expr_type) {
+            case TYPE_INT:
+                typeof_call = strdup("kotha_typeof_purno()");
+                break;
+            case TYPE_FLOAT:
+                typeof_call = strdup("kotha_typeof_doshomik()");
+                break;
+            case TYPE_STRING:
+                typeof_call = strdup("kotha_typeof_bornona()");
+                break;
+            case TYPE_BOOL:
+                typeof_call = strdup("kotha_typeof_sotyo_mittha()");
+                break;
+            default:
+                typeof_call = strdup("kotha_typeof_purno()");  // Default
+                break;
+        }
+        
+        $$->sval = typeof_call;
+    }
     | ID LBRACKET expression RBRACKET { 
         $$ = create_node(NODE_ARRAY_ACCESS);
         $$->sval = strdup($1);

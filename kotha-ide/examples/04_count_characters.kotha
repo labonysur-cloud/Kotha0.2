@@ -4,10 +4,10 @@
 main function {
     dekhaw("=== Character Counter ===");
     
-    dhoro vowels = 0;
-    dhoro consonants = 0;
-    dhoro digits = 0;
-    dhoro spaces = 0;
+    purno vowels = 0;
+    purno consonants = 0;
+    purno digits = 0;
+    purno spaces = 0;
     
     // Example: "Hello World 123"
     // H=consonant, e=vowel, l=consonant, l=consonant, o=vowel

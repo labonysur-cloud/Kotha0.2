@@ -2,8 +2,8 @@
 // This program demonstrates the nao() function for user input
 
 main function {
-    dhoro age;
-    dhoro year;
+    purno age;
+    purno year;
     
     dekhaw("Enter your age:");
     nao(age);
@@ -17,7 +17,7 @@ main function {
     dekhaw("Current year is:");
     dekhaw(year);
     
-    dhoro birth_year = year - age;
+    purno birth_year = year - age;
     dekhaw("You were born in:");
     dekhaw(birth_year);
 }

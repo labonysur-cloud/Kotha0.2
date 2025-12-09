@@ -22,8 +22,19 @@ void yyerror(const char *s);
 "porjonto"      { return PORJONTO; }
 "jotokkhon"     { return JOTOKKHON; }
 "ferot"         { return FEROT; }
-"dhoro"         { return DHORO; }
-"sthir"         { return STHIR; }
+
+    /* Type Keywords */
+"purno"         { return TYPE_INT_KW; }
+"doshomik"      { return TYPE_FLOAT_KW; }
+"bornona"       { return TYPE_STRING_KW; }
+"sotyo_mittha"  { return TYPE_BOOL_KW; }
+"sthir"         { return CONST; }
+
+    /* Boolean Literals */
+"sotti"         { yylval.ival = 1; return TRUE; }   /* সত্য = true */
+"mittha"        { yylval.ival = 0; return FALSE; }  /* মিথ্যা = false */
+
+    /* Other Keywords */
 "talika"        { return TALIKA; }
 "new"           { return NEW; }
 "dekhaw"        { return DEKHAW; }
@@ -35,6 +46,7 @@ void yyerror(const char *s);
 "kaj"           { return KAJ; }
 "void"        { return VOID; }
 "main function" { return MAIN; }
+"typeof"        { return TYPEOF; }
 
     /* Exception Handling Keywords */
 "try"           { return TRY; }

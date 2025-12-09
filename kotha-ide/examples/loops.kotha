@@ -9,7 +9,7 @@ main function {
     }
     
     // While loop
-    dhoro count = 0;
+    purno count = 0;
     dekhaw("While loop:");
     jotokkhon (count < 3) {
         dekhaw(count);
@@ -17,7 +17,7 @@ main function {
     }
     
     // If-else
-    dhoro score = 85;
+    purno score = 85;
     jodi (score >= 90) {
         dekhaw("Grade: A");
     } noyto (score >= 80) {

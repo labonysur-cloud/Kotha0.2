@@ -177,6 +177,14 @@ void ir_generate(ASTNode *node) {
             break;
         }
         
+        case NODE_INPUT: {
+            // Generate IR for input - read into variable
+            ir_add(IR_INPUT, NULL, NULL, node->sval);
+            
+            if (node->next) ir_generate(node->next);
+            break;
+        }
+        
         case NODE_IF: {
             char *cond = ir_gen_expr(node->cond);
             char *L_else = ir_new_label();
@@ -315,6 +323,9 @@ void ir_print() {
                 break;
             case IR_PRINT:
                 printf("PRINT %s\n", instr->arg1);
+                break;
+            case IR_INPUT:
+                printf("INPUT %s\n", instr->result);
                 break;
             case IR_LABEL:
                 printf("%s:\n", instr->result);

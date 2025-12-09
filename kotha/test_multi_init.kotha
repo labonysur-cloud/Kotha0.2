@@ -1,0 +1,11 @@
+main function {
+    // Test 2: Multiple variables with initialization
+    purno a = 100, b = 200, c = 300;
+    
+    dekhaw("a = ");
+    dekhaw(a);
+    dekhaw("b = ");
+    dekhaw(b);
+    dekhaw("c = ");
+    dekhaw(c);
+}

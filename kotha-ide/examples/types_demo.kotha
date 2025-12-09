@@ -1,0 +1,28 @@
+// Example: All Data Types in Kotha
+main function {
+    dekhaw("=== Kotha Type System Demo ===");
+    
+    // Integer (purno)
+    purno age = 25;
+    dekhaw("Integer:");
+    dekhaw(age);
+    
+    // Float (doshomik)
+    doshomik price = 99.99;
+    dekhaw("Float declared");
+    
+    // String (bornona)
+    bornona language = "Kotha";
+    dekhaw("String:");
+    dekhaw(language);
+    
+    // Boolean (sotyo_mittha)
+    sotyo_mittha isActive = sotti;
+    dekhaw("Boolean:");
+    dekhaw(isActive);
+    
+    // Arithmetic
+    purno sum = age + 10;
+    dekhaw("Age + 10:");
+    dekhaw(sum);
+}

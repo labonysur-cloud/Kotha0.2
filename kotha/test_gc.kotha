@@ -4,9 +4,9 @@
 main function {
     // Test 1: Simple allocations
     dekhaw("Test 1: Simple allocations");
-    dhoro x = 10;
-    dhoro y = 20;
-    dhoro z = 30;
+    purno x = 10;
+    purno y = 20;
+    purno z = 30;
     dekhaw(x);
     dekhaw(y);
     dekhaw(z);
@@ -20,8 +20,8 @@ main function {
     // Test 3: Allocations in scope
     dekhaw("Test 3: Scoped allocations");
     jodi (1 == 1) {
-        dhoro a = 100;
-        dhoro b = 200;
+        purno a = 100;
+        purno b = 200;
         dekhaw(a);
         dekhaw(b);
     }
@@ -29,9 +29,9 @@ main function {
     
     // Test 4: Loop allocations
     dekhaw("Test 4: Loop allocations");
-    dhoro i = 0;
+    purno i = 0;
     jotokkhon (i < 5) {
-        dhoro temp = i * 10;
+        purno temp = i * 10;
         dekhaw(temp);
         i++;
     }

@@ -28,7 +28,7 @@ It features a custom compiler, a high-performance register-based Virtual Machine
 
 <div align="center">
   <h3>✨ The Kotha IDE ✨</h3>
-  <img src="assets/kotha_ide_screenshot.png" alt="Kotha IDE Screenshot" width="800" style="border-radius: 10px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);" />
+  <img src="screenshots/kotha-ide-demo.png" alt="Kotha IDE Screenshot" width="800" style="border-radius: 10px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);" />
 </div>
 
 ---
@@ -38,8 +38,12 @@ It features a custom compiler, a high-performance register-based Virtual Machine
 Kotha 0.2 currently supports the following fully functional features:
 
 ### 🛠 Core Language
-- **Banglish Syntax**: Familiar keywords like `dhoro` (let), `dekhaw` (print), `jodi` (if), `nabor` (else), `jotokhon` (while).
-- **Data Types**: Support for Integers, Floats, Strings, and Booleans.
+- **Banglish Syntax**: Familiar keywords like `purno` (int), `doshomik` (float), `bornona` (string), `dekhaw` (print), `jodi` (if), `noyto` (else), `jotokkhon` (while).
+- **Data Types**: Support for Integers (`purno`), Floats (`doshomik`), Strings (`bornona`), and Booleans (`sotyo_mittha`).
+- **C-Style Declarations**: Multiple variable declarations in one line: `purno x, y, z = 10;`
+- **String Concatenation**: Use `+` operator to concatenate strings with automatic type conversion: `"Age: " + age`
+- **Type Casting**: 12 conversion functions for explicit type conversions (e.g., `purno_to_doshomik()`, `bornona_to_purno()`)
+- **Type Inspection**: `typeof()` operator for runtime type checking
 - **Control Flow**: `if-else` conditionals and `while` loops.
 - **Functions**: Define and call functions with arguments and return values.
 - **Virtual Machine**: Code is compiled to bytecode and executed on a custom high-performance VM.
@@ -211,7 +215,7 @@ We welcome contributions! Please feel free to submit a Pull Request.
 ---
 
 <div align="center">
-  Developed with ❤️ by <b>Labony Sur</b>
+  Developed with  by <b>Labony Sur</b>
   <br/>
   <i>Empowering coders in their native tongue.</i>
 </div>

@@ -1,12 +1,12 @@
 main function {
     dekhaw("Enter a number: ");
-    dhoro age;
+    purno age;
     nao(age);
     
     dekhaw("You entered: ");
     dekhaw(age);
     
-    dhoro doubled = age * 2;
+    purno doubled = age * 2;
     dekhaw("Doubled: ");
     dekhaw(doubled);
 }

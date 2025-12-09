@@ -59,7 +59,7 @@ extern int generate_c;
 
 /* Print usage */
 void print_usage(const char *prog_name) {
-    printf("🐯 Kotha Programming Language v%s\n\n", VERSION);
+    printf("Kotha Programming Language v%s\n\n", VERSION);
     printf("Usage:\n");
     printf("  %s <command> [options] [file]\n\n", prog_name);
     

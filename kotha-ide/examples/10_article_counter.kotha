@@ -7,10 +7,10 @@ main function {
     // Input: "The quick brown fox jumps over a lazy dog"
     // Articles: "The" (1), "a" (1)
     
-    dhoro articleA = 1;
-    dhoro articleAn = 0;
-    dhoro articleThe = 1;
-    dhoro totalArticles = 2;
+    purno articleA = 1;
+    purno articleAn = 0;
+    purno articleThe = 1;
+    purno totalArticles = 2;
     
     dekhaw("Input: The quick brown fox jumps over a lazy dog");
     dekhaw("Articles found:");

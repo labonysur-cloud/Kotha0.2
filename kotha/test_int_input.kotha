@@ -1,0 +1,5 @@
+main function {
+    purno x;
+    nao(x);
+    dekhaw(x);
+}

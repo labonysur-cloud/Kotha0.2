@@ -5,42 +5,42 @@ main function {
     dekhaw("=== String Library Demo ===");
     
     // String length
-    dhoro text = "Hello Kotha";
-    dhoro len = kotha_strlen(text);
+    bornona text = "Hello Kotha";
+    purno len = kotha_strlen(text);
     dekhaw("String:");
     dekhaw(text);
     dekhaw("Length:");
     dekhaw(len);
     
     // String concatenation
-    dhoro greeting = "Hello";
-    dhoro name = " World";
-    dhoro combined = kotha_strcat(greeting, name);
+    bornona greeting = "Hello";
+    bornona name = " World";
+    bornona combined = kotha_strcat(greeting, name);
     dekhaw("Concatenated:");
     dekhaw(combined);
     
     // String comparison
-    dhoro str1 = "apple";
-    dhoro str2 = "banana";
-    dhoro cmp = kotha_strcmp(str1, str2);
+    bornona str1 = "apple";
+    bornona str2 = "banana";
+    purno cmp = kotha_strcmp(str1, str2);
     dekhaw("Comparison result:");
     dekhaw(cmp);
     
     // String uppercase
-    dhoro lower = "kotha";
-    dhoro upper = kotha_toupper(lower);
+    bornona lower = "kotha";
+    bornona upper = kotha_toupper(lower);
     dekhaw("Uppercase:");
     dekhaw(upper);
     
     // String reverse
-    dhoro original = "Kotha";
-    dhoro reversed = kotha_reverse(original);
+    bornona original = "Kotha";
+    bornona reversed = kotha_reverse(original);
     dekhaw("Reversed:");
     dekhaw(reversed);
     
     // Substring
-    dhoro fulltext = "Programming";
-    dhoro sub = kotha_substr(fulltext, 0, 4);
+    bornona fulltext = "Programming";
+    bornona sub = kotha_substr(fulltext, 0, 4);
     dekhaw("Substring:");
     dekhaw(sub);
     

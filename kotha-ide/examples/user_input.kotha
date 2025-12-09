@@ -8,24 +8,24 @@ main function {
     // In the web IDE, this will show how the code structure works
     
     dekhaw("Enter your name:");
-    // dhoro name = nao();  // This would read input
+    // purno name = nao();  // This would read input
     
     // For now, we'll demonstrate with predefined values
-    dhoro name = "User";
+    bornona name = "User";
     dekhaw("Hello,");
     dekhaw(name);
     
     dekhaw("Enter your age:");
-    // dhoro age = nao();  // This would read number input
-    dhoro age = 25;
+    // purno age = nao();  // This would read number input
+    purno age = 25;
     
     dekhaw("You are");
     dekhaw(age);
     dekhaw("years old");
     
     // Calculate birth year
-    dhoro currentYear = 2024;
-    dhoro birthYear = currentYear - age;
+    purno currentYear = 2024;
+    purno birthYear = currentYear - age;
     
     dekhaw("You were born around:");
     dekhaw(birthYear);

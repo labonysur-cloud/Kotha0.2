@@ -4,31 +4,31 @@
 main function {
     dekhaw("=== Simple Calculator ===");
     
-    dhoro num1 = 50;
-    dhoro num2 = 25;
+    purno num1 = 50;
+    purno num2 = 25;
     
     // Addition
-    dhoro sum = num1 + num2;
+    purno sum = num1 + num2;
     dekhaw("Addition:");
     dekhaw(sum);
     
     // Subtraction
-    dhoro diff = num1 - num2;
+    purno diff = num1 - num2;
     dekhaw("Subtraction:");
     dekhaw(diff);
     
     // Multiplication
-    dhoro product = num1 * num2;
+    purno product = num1 * num2;
     dekhaw("Multiplication:");
     dekhaw(product);
     
     // Division
-    dhoro quotient = num1 / num2;
+    purno quotient = num1 / num2;
     dekhaw("Division:");
     dekhaw(quotient);
     
     // Modulo
-    dhoro remainder = num1 % num2;
+    purno remainder = num1 % num2;
     dekhaw("Remainder:");
     dekhaw(remainder);
 }

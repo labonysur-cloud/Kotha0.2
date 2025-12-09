@@ -1,0 +1,5 @@
+main function {
+    doshomik pi;
+    nao(pi);
+    dekhaw(pi);
+}

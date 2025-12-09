@@ -15,6 +15,7 @@ typedef enum {
     NODE_UN_OP,          // NEW: Unary operations (!, ++, --)
     NODE_ASSIGN,
     NODE_PRINT,
+    NODE_INPUT,          // NEW: Input statement
     NODE_IF,
     NODE_WHILE,
     NODE_FOR,

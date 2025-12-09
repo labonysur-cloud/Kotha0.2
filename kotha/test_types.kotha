@@ -1,0 +1,14 @@
+main function {
+    // Test all type declarations
+    purno age = 25;
+    doshomik price = 99.99;
+    bornona name = "Kotha Language";
+    sotyo_mittha isActive = sotti;
+    
+    dekhaw("Testing Kotha Type System");
+    dekhaw("Age (purno):");
+    dekhaw(age);
+    
+    dekhaw("Active (sotyo_mittha):");
+    dekhaw(isActive);
+}

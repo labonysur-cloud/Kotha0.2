@@ -1,0 +1,14 @@
+main function {
+    // Test 1: Multiple variables without initialization
+    purno x, y, z;
+    x = 10;
+    y = 20;
+    z = 30;
+    
+    dekhaw("x = ");
+    dekhaw(x);
+    dekhaw("y = ");
+    dekhaw(y);
+    dekhaw("z = ");
+    dekhaw(z);
+}

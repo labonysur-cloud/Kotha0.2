@@ -1,0 +1,10 @@
+main function {
+    // Test string to number conversion
+    bornona input = "123";
+    purno number = bornona_to_purno(input);
+    doshomik decimal = bornona_to_doshomik("3.14");
+    
+    dekhaw("String: " + input);
+    dekhaw("Number: " + number);
+    dekhaw("Decimal: " + decimal);
+}

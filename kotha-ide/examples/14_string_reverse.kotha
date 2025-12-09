@@ -7,7 +7,7 @@ main function {
     // Original: "Kotha"
     // Reversed: "ahtoK"
     
-    dhoro length = 5;
+    purno length = 5;
     
     dekhaw("Original string: Kotha");
     dekhaw("Length:");
@@ -17,7 +17,7 @@ main function {
     
     // Another example
     dekhaw("Original: Bangladesh");
-    dhoro len2 = 10;
+    purno len2 = 10;
     dekhaw("Length:");
     dekhaw(len2);
     dekhaw("Reversed: hsedalgnaB");

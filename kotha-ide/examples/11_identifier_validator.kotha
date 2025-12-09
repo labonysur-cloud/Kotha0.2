@@ -9,7 +9,7 @@ main function {
     // 2. Contains only letters, digits, underscore
     // 3. Not a keyword
     
-    dhoro isValid = 1;  // 1 = true, 0 = false
+    purno isValid = 1;  // 1 = true, 0 = false
     
     // Test case 1: "myVariable" - VALID
     dekhaw("Test: myVariable");

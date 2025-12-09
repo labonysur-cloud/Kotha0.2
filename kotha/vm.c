@@ -692,6 +692,22 @@ int vm_execute_instruction(VM *vm) {
             break;
         }
         
+        case OP_INPUT: {
+            // Read integer input from user
+            int input_val;
+            if (scanf("%d", &input_val) == 1) {
+                Value val = {VAL_INT, {.int_val = input_val}};
+                vm_push(vm, val);
+            } else {
+                // Clear input buffer on error
+                int c;
+                while ((c = getchar()) != '\n' && c != EOF);
+                Value val = {VAL_INT, {.int_val = 0}};
+                vm_push(vm, val);
+            }
+            break;
+        }
+        
         case OP_LOAD_STR: {
             Value val = {VAL_STRING, {.string_id = instr.arg}};
             vm_push(vm, val);
@@ -776,6 +792,7 @@ const char* vm_opcode_name(OpCode op) {
         case OP_RETURN: return "RETURN";
         case OP_PRINT: return "PRINT";
         case OP_PRINT_STR: return "PRINT_STR";
+        case OP_INPUT: return "INPUT";
         case OP_LOAD_STR: return "LOAD_STR";
         case OP_LINE: return "LINE";
         default: return "UNKNOWN";

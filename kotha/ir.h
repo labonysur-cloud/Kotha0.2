@@ -23,6 +23,7 @@ typedef enum {
     IR_CALL,        // result = call arg1, arg2 (num_args)
     IR_RETURN,      // return arg1
     IR_PRINT,       // print arg1
+    IR_INPUT,       // input result (read into result)
     IR_EQ,          // result = arg1 == arg2
     IR_NEQ,         // result = arg1 != arg2
     IR_LT,          // result = arg1 < arg2

@@ -4,6 +4,6 @@ kaj add(a, b) {
 }
 
 main function {
-    dhoro result = add(5, 3);
+    purno result = add(5, 3);
     dekhaw(result);
 }

@@ -2,13 +2,13 @@ main function {
     dekhaw("=== Kotha User Input Demo ===");
     
     dekhaw("Enter your age: ");
-    dhoro age;
+    purno age;
     nao(age);
     
     dekhaw("You are: ");
     dekhaw(age);
     
-    dhoro nextYear = age + 1;
+    purno nextYear = age + 1;
     dekhaw("Next year you will be: ");
     dekhaw(nextYear);
 }

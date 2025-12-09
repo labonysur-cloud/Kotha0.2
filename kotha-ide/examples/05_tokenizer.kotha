@@ -7,7 +7,7 @@ main function {
     // Input: "Hello World from Kotha"
     // Tokens: ["Hello", "World", "from", "Kotha"]
     
-    dhoro tokenCount = 4;
+    purno tokenCount = 4;
     
     dekhaw("Input: Hello World from Kotha");
     dekhaw("Delimiter: space");
@@ -23,7 +23,7 @@ main function {
     // Another example with comma delimiter
     dekhaw("Input: apple,banana,orange");
     dekhaw("Delimiter: comma");
-    dhoro fruits = 3;
+    purno fruits = 3;
     dekhaw("Number of tokens:");
     dekhaw(fruits);
 }

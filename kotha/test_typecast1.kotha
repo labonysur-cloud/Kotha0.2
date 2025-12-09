@@ -1,0 +1,10 @@
+main function {
+    // Test type conversions
+    purno x = 42;
+    doshomik y = purno_to_doshomik(x);
+    bornona s = purno_to_bornona(x);
+    
+    dekhaw("Int: " + x);
+    dekhaw("Float: " + y);
+    dekhaw("String: " + s);
+}

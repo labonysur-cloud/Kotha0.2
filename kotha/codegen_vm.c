@@ -223,6 +223,9 @@ VM* codegen_vm(IRInstr *ir) {
                 case IR_PRINT:
                     addr += 2; // LOAD arg1, PRINT
                     break;
+                case IR_INPUT:
+                    addr += 2; // INPUT, STORE result
+                    break;
                 case IR_GOTO:
                     addr += 1; // JMP
                     break;
@@ -338,6 +341,14 @@ VM* codegen_vm(IRInstr *ir) {
                 // print arg1
                 emit_load(vm, curr->arg1);
                 vm_add_instr(vm, OP_PRINT, 0);
+                break;
+            }
+            
+            case IR_INPUT: {
+                // input result
+                vm_add_instr(vm, OP_INPUT, 0);
+                int dst_idx = get_var_index(curr->result);
+                vm_add_instr(vm, OP_STORE_LOCAL, dst_idx);
                 break;
             }
             

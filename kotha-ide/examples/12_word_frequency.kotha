@@ -10,7 +10,7 @@ main function {
     
     dekhaw("Input: hello world hello kotha world hello");
     
-    dhoro maxFrequency = 3;
+    purno maxFrequency = 3;
     
     dekhaw("Word frequencies:");
     dekhaw("hello: 3");

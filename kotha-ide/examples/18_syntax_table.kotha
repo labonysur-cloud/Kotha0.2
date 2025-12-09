@@ -13,10 +13,10 @@ main function {
     dekhaw("Digits: 1, 2, 3 (count: 3)");
     dekhaw("Operators: +, * (count: 2)");
     
-    dhoro letters = 3;
-    dhoro digits = 3;
-    dhoro operators = 2;
-    dhoro symbols = 0;
+    purno letters = 3;
+    purno digits = 3;
+    purno operators = 2;
+    purno symbols = 0;
     
     dekhaw("Summary:");
     dekhaw("Total letters:");

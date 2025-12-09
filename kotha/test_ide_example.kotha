@@ -1,0 +1,13 @@
+main function {
+    // Type casting and typeof()!
+    purno x = 42;
+    doshomik y = purno_to_doshomik(x);
+    bornona s = purno_to_bornona(x);
+    
+    dekhaw("Int: " + x);
+    dekhaw("Float: " + y);
+    dekhaw("String: " + s);
+    
+    dekhaw("Type of x: " + typeof(x));
+    dekhaw("Type of y: " + typeof(y));
+}
